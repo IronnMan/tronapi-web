@@ -1,0 +1,70 @@
+{
+  "name": "tronapi-web",
+  "version": "2.0.0",
+  "description": "https://doc.tronapi.com",
+  "private": true,
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi generate tmp",
+    "prepare": "husky install",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "analyze": "cross-env ANALYZE=1 umi build",
+    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "dependencies": {
+    "@ant-design/charts": "^1.2.14",
+    "@ant-design/pro-form": "^1.46.0",
+    "@ant-design/pro-layout": "^6.5.0",
+    "@sentry/react": "^6.16.1",
+    "@sentry/tracing": "^6.16.1",
+    "antd": "4.18.0",
+    "classnames": "^2.3.1",
+    "crypto-js": "^4.1.1",
+    "decimal.js": "^10.3.1",
+    "lodash.filter": "^4.6.0",
+    "lodash.find": "^4.6.0",
+    "lodash.shuffle": "^4.2.0",
+    "lodash.uniqueid": "^4.0.1",
+    "moment": "^2.29.1",
+    "number-format.js": "^2.0.9",
+    "react": "17.x",
+    "react-color": "^2.19.3",
+    "react-copy-to-clipboard": "^5.0.4",
+    "react-dom": "17.x",
+    "umi": "^3.5.20"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@tailwindcss/postcss7-compat": "^2.2.16",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@umijs/preset-react": "^2.1.1",
+    "@umijs/test": "^3.5.20",
+    "autoprefixer": "^9",
+    "babel-plugin-import": "^1.13.3",
+    "cross-env": "^7.0.3",
+    "husky": "^7.0.4",
+    "lint-staged": "^10.0.7",
+    "postcss": "^7",
+    "postcss-import": "12.0.0",
+    "postcss-nested": "4.2.0",
+    "prettier": "^2.2.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typescript": "^4.1.2",
+    "yorkie": "^2.0.0"
+  }
+}

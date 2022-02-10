@@ -1,0 +1,88 @@
+@import 'tailwindcss/components.css';
+@import 'tailwindcss/utilities.css';
+@import 'antd/dist/antd.variable.min.css';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+pre {
+  padding: 10px !important;
+  margin: 0px !important;
+  background-color: #232435;
+  color: #f2f2f2;
+}
+
+ol,
+ul {
+  padding: 0 18px;
+
+  li {
+    margin: 5px 0;
+  }
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-form-item {
+  margin-bottom: 16px !important;
+}
+
+.ant-tooltip {
+  max-width: 500px !important;
+}
+
+.ant-table-column-title {
+  margin-right: 5px;
+}
+
+.ant-pagination-total-text {
+  float: left;
+  color: #343536;
+}
+
+.ant-menu-submenu {
+  .ant-menu-item-only-child {
+    padding-left: 40px !important;
+  }
+}
+
+.ant-radio-button-wrapper {
+  &:first-child {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+  }
+  &:last-child {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+.main-container {
+  margin: 15px;
+  padding: 25px;
+  /** background-color: @component-background; **/
+  background-color: #fff;
+  min-height: 100%;
+}
+
+.ghost-container {
+  margin: 15px;
+  min-height: 100%;
+}
+
+body.dark {
+  .ant-card-grid {
+    box-shadow: none !important;
+  }
+}
