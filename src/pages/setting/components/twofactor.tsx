@@ -9,7 +9,6 @@ import {
   Spin,
   Input,
   Button,
-  Alert,
 } from 'antd';
 import { UserModelState } from '@/models/user';
 import { SETTING_TYPE } from '@/configs/setting';

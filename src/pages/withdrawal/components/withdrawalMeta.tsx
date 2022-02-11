@@ -31,7 +31,7 @@ const WithdrawalStatus = (props: { data: IWithdrawal }) => {
           处理时间：{formatDateTime(data.status_time)}
         </Tag>
         <a
-          href={`${TRON_BROWSER[data.coin_code]}/transaction/${data.hash}`}
+          href={`${TRON_BROWSER[data.coin_code]}/#/transaction/${data.hash}`}
           target="_blank"
         >
           查看交易详情 <ArrowRightOutlined />
@@ -91,7 +91,7 @@ const WithdrawalMeta: React.FC<IProps> = (props) => {
         <Descriptions.Item label="接收地址">
           {data.address ? (
             <a
-              href={`${TRON_BROWSER[data.coin_code]}/address/${data.address}`}
+              href={`${TRON_BROWSER[data.coin_code]}/#/address/${data.address}`}
               target="_blank"
             >
               {data.address}

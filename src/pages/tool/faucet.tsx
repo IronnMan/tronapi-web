@@ -1,7 +1,6 @@
 import React from 'react';
 import { Tabs } from 'antd';
 import ContentHeader from '@/components/contentHeader';
-import { COIN_TYPE } from '@/configs/enum';
 import { Fau, Trx } from './components';
 
 const { TabPane } = Tabs;

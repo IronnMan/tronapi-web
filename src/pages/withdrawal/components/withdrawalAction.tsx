@@ -1,9 +1,8 @@
 import React from 'react';
 import { useSelector, useModel } from 'umi';
-import { Button, Tooltip, Badge } from 'antd';
+import { Button, Badge } from 'antd';
 import { usePageContext } from '@/hooks/usePageContext';
 import { UserModelState } from '@/models/user';
-import { COLOR } from '@/configs/enum';
 import {
   ArrowRightOutlined,
   ExclamationCircleOutlined,

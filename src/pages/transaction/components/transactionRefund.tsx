@@ -46,7 +46,7 @@ const TransactionRefund: React.FC<IProps> = (props) => {
                   {TRANSACTION_STATUS_TEXT[status]}
                 </Tag>
                 <a
-                  href={`${TRON_BROWSER[coin_code]}/transaction/${user_transaction_refund.hash}`}
+                  href={`${TRON_BROWSER[coin_code]}/#/transaction/${user_transaction_refund.hash}`}
                   target="_blank"
                 >
                   查看交易详情 <ArrowRightOutlined />

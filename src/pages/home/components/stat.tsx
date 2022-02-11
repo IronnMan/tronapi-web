@@ -4,11 +4,6 @@ import { Card, Statistic, Row, Col } from 'antd';
 import { formatAmount } from '@/utils/formater';
 import { usePageContext } from '@/hooks/usePageContext';
 
-const gridStyle = {
-  width: '100%',
-  border: 'none',
-};
-
 interface IProps {
   data: any;
   loading: boolean;

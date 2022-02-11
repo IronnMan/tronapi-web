@@ -32,7 +32,7 @@ const ListDescr = (props: { data: IWithdrawal }) => {
       <span className="tw-hidden lg:tw-block">
         接收地址：
         <a
-          href={`${TRON_BROWSER[data.coin_code]}/address/${data.address}`}
+          href={`${TRON_BROWSER[data.coin_code]}/#/address/${data.address}`}
           target="_blank"
         >
           {data.address}

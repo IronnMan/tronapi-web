@@ -74,7 +74,7 @@ const TransactionStatus = (props: { data: ITransaction }) => {
           支付时间：{formatDateTime(data.status_time)}
         </Tag>
         <a
-          href={`${TRON_BROWSER[data.coin_code]}/transaction/${
+          href={`${TRON_BROWSER[data.coin_code]}/#/transaction/${
             data.transactions[0].hash
           }`}
           target="_blank"
@@ -96,7 +96,7 @@ const TransactionStatus = (props: { data: ITransaction }) => {
         </Tag>
         {data.transactions.length ? (
           <a
-            href={`${TRON_BROWSER[data.coin_code]}/transaction/${
+            href={`${TRON_BROWSER[data.coin_code]}/#/transaction/${
               data.transactions[0].hash
             }`}
             target="_blank"

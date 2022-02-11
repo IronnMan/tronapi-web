@@ -40,7 +40,7 @@ const TestResultPage: React.FC = () => {
             window.open(
               `${
                 TRON_BROWSER[test_transaction.coin_code as COIN_TYPE]
-              }/transaction/${test_transaction.hash}`,
+              }/#/transaction/${test_transaction.hash}`,
             )
           }
         >
