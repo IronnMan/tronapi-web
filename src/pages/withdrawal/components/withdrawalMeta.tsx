@@ -34,7 +34,7 @@ const WithdrawalStatus = (props: { data: IWithdrawal }) => {
           href={`${TRON_BROWSER[data.coin_code]}/#/transaction/${data.hash}`}
           target="_blank"
         >
-          查看交易详情 <ArrowRightOutlined />
+          交易详情 <ArrowRightOutlined />
         </a>
       </Space>
     );

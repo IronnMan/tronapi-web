@@ -8,6 +8,7 @@ import {
   CalculatorOutlined,
   CheckCircleOutlined,
   WarningOutlined,
+  CodeOutlined,
 } from '@ant-design/icons';
 import IWithdrawal from '@/types/IWithdrawal';
 
@@ -69,7 +70,7 @@ const WithdrawalWebhook: React.FC<IProps> = (props) => {
                 异常
               </Tag>
             )}
-            <Tag icon={<CalculatorOutlined />} color={COLOR.PINK}>
+            <Tag icon={<CodeOutlined />} color={COLOR.PINK}>
               状态码：{webhook.webhook_result_code}
             </Tag>
             <Tag icon={<CalculatorOutlined />} color={COLOR.YELLOW}>

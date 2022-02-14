@@ -33,9 +33,7 @@ const AuthenticatorLinks = [
 
 const TwoFactorCancel: React.FC<IProps> = (props) => {
   const [form] = Form.useForm();
-
   const { loading } = props;
-
   const onSubmit = () => {
     form
       .validateFields()
@@ -65,7 +63,6 @@ const TwoFactorCancel: React.FC<IProps> = (props) => {
         <Form.Item name="token" label="两步安全验证">
           <Badge status="success" text="已开启" />
         </Form.Item>
-
         <Form.Item
           name="token"
           label="安全码"

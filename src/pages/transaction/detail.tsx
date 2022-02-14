@@ -83,7 +83,7 @@ const TransactionDetailPage: React.FC<any> = () => {
               />
             </Tabs.TabPane>
             {webhookTabVisible && (
-              <Tabs.TabPane tab="Webhook" key="2">
+              <Tabs.TabPane tab="回调信息" key="2">
                 <TransactionWebhook data={transactionDetail} />
               </Tabs.TabPane>
             )}

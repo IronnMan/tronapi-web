@@ -37,11 +37,11 @@ const getAmountRefund = (refund: any) => {
 const ListTitle = (props: { data: ITransaction }) => {
   const { data } = props;
   return (
-    <>
-      <span>{formatAmount(data.coin_amount, data.coin_code)}</span>
+    <Link to={`/transaction/list/${data.id}`}>
+      {formatAmount(data.coin_amount, data.coin_code)}
       <Divider type="vertical" />
-      <span>{formatAmount(data.amount, data.currency)}</span>
-    </>
+      {formatAmount(data.amount, data.currency)}
+    </Link>
   );
 };
 
@@ -136,7 +136,7 @@ const ListAvatar = (props: { data: ITransaction }) => {
       avatarText = '已过期';
       avatarColor = COLOR.YELLOW;
     } else {
-      tooltipTitle = <div>等待用户支付</div>;
+      tooltipTitle = <div>等待用户付款</div>;
       avatarText = '未完成';
       avatarColor = COLOR.ORANGE;
     }

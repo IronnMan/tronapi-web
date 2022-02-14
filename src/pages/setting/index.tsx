@@ -101,17 +101,17 @@ const SettingPage: React.FC = () => {
               loading={loading}
             />
           </TabPane>
-          <TabPane tab="白名单设置" key={SETTING_TYPE.SECURITY}>
+          <TabPane tab="回调设置" key={SETTING_TYPE.WEBHOOK}>
+            <Webhook onSubmit={onSubmit} data={user_config} loading={loading} />
+          </TabPane>
+          <TabPane tab="接口白名单" key={SETTING_TYPE.SECURITY}>
             <Security
               onSubmit={onSubmit}
               data={user_config}
               loading={loading}
             />
           </TabPane>
-          <TabPane tab="回调配置" key={SETTING_TYPE.WEBHOOK}>
-            <Webhook onSubmit={onSubmit} data={user_config} loading={loading} />
-          </TabPane>
-          <TabPane tab="密钥信息" key={SETTING_TYPE.KEYSTONE}>
+          <TabPane tab="接口密钥" key={SETTING_TYPE.KEYSTONE}>
             <Keystone
               onSubmit={onSubmit}
               data={user_keystone}

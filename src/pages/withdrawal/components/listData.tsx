@@ -20,7 +20,9 @@ const ListTitle = (props: { data: IWithdrawal }) => {
   const { data } = props;
   return (
     <Space>
-      <span>{formatAmount(data.amount_send, data.coin_code)}</span>
+      <Link to={`/withdrawal/list/${data.id}`}>
+        {formatAmount(data.amount_send, data.coin_code)}
+      </Link>
     </Space>
   );
 };

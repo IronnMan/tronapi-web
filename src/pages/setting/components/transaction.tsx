@@ -17,6 +17,7 @@ import { TRANSACTION_PARTIAL_HANDLER } from '@/configs/transaction';
 import { TRANSACTION_PARTIAL_HANDLER_OPTIONS } from '@/configs/options';
 import { SETTING_TYPE } from '@/configs/setting';
 import Validator from '@/utils/validator';
+import { LINKS } from '@/configs/links';
 
 const { Option } = Select;
 
@@ -240,9 +241,11 @@ const Transaction: React.FC<IProps> = (props) => {
         <h3>说明</h3>
         <h4>关于配置</h4>
         <ol>
-          <li>上述配置用于自动处理当用户支付金额低于订单金额的情况。</li>
           <li>
-            如未配置，当出现上述情况时，你可以：
+            上述配置用于自动处理当用户支付金额低于订单金额（部分付款）的情况。
+          </li>
+          <li>
+            如未配置，当出现上述情况时，商户可以：
             <ul>
               <li>
                 要求用户支付余下未支付的金额，系统会合并付款并更新订单状态。
@@ -251,6 +254,13 @@ const Transaction: React.FC<IProps> = (props) => {
             </ul>
           </li>
           <li>最多添加 {MAX_HANDLER_COUNT} 条配置信息。</li>
+          <li>
+            关于部分付款，请参考：
+            <a href={LINKS.PARTIAL_DOC} target="_blank">
+              {LINKS.PARTIAL_DOC}
+            </a>
+            ，
+          </li>
         </ol>
 
         <h4>关于处理为“完成”</h4>

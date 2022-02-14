@@ -40,7 +40,7 @@ const TestPage: React.FC = () => {
         <LoginForm
           logo={logo || process.env.APP_LOGO}
           title={name || process.env.APP_NAME}
-          subTitle={'在线测试'}
+          subTitle={'订单测试'}
           submitter={false}
           onFinish={async (values) => {
             await onSubmit(values);
@@ -101,7 +101,7 @@ const TestPage: React.FC = () => {
           </div>
           <div className="tw-text-center">
             <a href="#!" onClick={() => history.push('/')}>
-              退出测试 <ArrowRightOutlined />
+              退出 <ArrowRightOutlined />
             </a>
           </div>
           <Divider />
@@ -109,13 +109,7 @@ const TestPage: React.FC = () => {
             <h3>说明</h3>
             <ol>
               <li>本页面功能演示相关订单接口的创建及支付流程。</li>
-              <li>可登录系统免费获取测试（{COIN_TYPE.FAU}）用于测试。</li>
-              <li>
-                更多信息请阅读接口文档。
-                <a target="_blank" href={LINKS.API}>
-                  {LINKS.API}
-                </a>
-              </li>
+              <li>可登录系统免费获取测试币用于测试。</li>
             </ol>
           </div>
         </LoginForm>

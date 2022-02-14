@@ -39,7 +39,7 @@ const Security: React.FC<IProps> = (props) => {
         <Form.Item name="ip_whitelist" label="接口IP白名单">
           <Input
             placeholder="请输入IP地址，多个IP请以英文逗号分隔..."
-            style={{ width: '360px' }}
+            style={{ width: '400px' }}
           />
         </Form.Item>
 

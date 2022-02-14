@@ -1,7 +1,11 @@
 import React from 'react';
 import { history, Link, useModel, useSelector, useDispatch } from 'umi';
 import { Button, Divider, message } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  LockOutlined,
+  UserOutlined,
+  ArrowRightOutlined,
+} from '@ant-design/icons';
 import { ProFormText, LoginForm } from '@ant-design/pro-form';
 import Footer from '@/components/footer';
 import styles from './style.less';
@@ -112,11 +116,10 @@ const SignupPage: React.FC = () => {
               注册
             </Button>
           </div>
-          <Divider plain>已有账号</Divider>
-          <Link to="/account/signin" className="tw-text-gray-600">
-            <Button type="dashed" danger block size="large">
-              登录
-            </Button>
+          <Link to="/account/signin">
+            <div className="tw-text-center">
+              已有账号？立即登录 <ArrowRightOutlined />
+            </div>
           </Link>
           <Divider />
           <div>

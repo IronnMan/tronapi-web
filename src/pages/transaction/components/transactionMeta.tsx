@@ -79,7 +79,7 @@ const TransactionStatus = (props: { data: ITransaction }) => {
           }`}
           target="_blank"
         >
-          查看交易详情 <ArrowRightOutlined />
+          交易详情 <ArrowRightOutlined />
         </a>
       </Space>
     );
@@ -101,7 +101,7 @@ const TransactionStatus = (props: { data: ITransaction }) => {
             }`}
             target="_blank"
           >
-            查看交易详情 <ArrowRightOutlined />
+            交易详情 <ArrowRightOutlined />
           </a>
         ) : null}
       </Space>
@@ -142,7 +142,7 @@ const TransactionStatus = (props: { data: ITransaction }) => {
       return (
         <Space>
           <Tag icon={<WarningOutlined />} color={COLOR.YELLOW}>
-            已过期
+            {TRANSACTION_STATUS_TEXT[TRANSACTION_STATUS.EXPIRED]}
           </Tag>
           <Tag color={COLOR.GRAY}>
             过期时间：{formatDateTime(data.expire_time)}

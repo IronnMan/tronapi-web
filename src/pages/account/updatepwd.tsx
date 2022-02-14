@@ -117,11 +117,12 @@ const UpdatePwdPage: React.FC = () => {
               提交
             </Button>
           </div>
-          <div className="tw-text-center">
-            <Link to="/" className="tw-text-gray-600">
+
+          <Link to="/">
+            <div className="tw-text-center">
               <ArrowLeftOutlined /> 返回
-            </Link>
-          </div>
+            </div>
+          </Link>
           <Divider />
           <div>
             <h3>说明</h3>

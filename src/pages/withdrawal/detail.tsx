@@ -73,7 +73,7 @@ const WithdrawalDetailPage: React.FC<any> = () => {
               <WithdrawalMeta data={withdrawalDetail} />
             </Tabs.TabPane>
             {webhookTabVisible && (
-              <Tabs.TabPane tab="Webhook" key="2">
+              <Tabs.TabPane tab="回调信息" key="2">
                 <WithdrawalWebhook data={withdrawalDetail} />
               </Tabs.TabPane>
             )}

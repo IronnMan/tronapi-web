@@ -100,7 +100,7 @@ const WebHook: React.FC<IProps> = (props) => {
             >
               <Input
                 placeholder="请输入以 http 或 https 开头的链接类型..."
-                style={{ width: '360px' }}
+                style={{ width: '400px' }}
               />
             </Form.Item>
             <Button
@@ -128,7 +128,7 @@ const WebHook: React.FC<IProps> = (props) => {
             >
               <Input
                 placeholder="请输入以 http 或 https 开头的链接类型..."
-                style={{ width: '360px' }}
+                style={{ width: '400px' }}
               />
             </Form.Item>
             <Button
