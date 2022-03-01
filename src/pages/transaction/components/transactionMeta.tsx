@@ -266,6 +266,20 @@ const TransactionMeta: React.FC<IProps> = (props) => {
             ? formatAmount(data.coin_amount, data.coin_code)
             : '-'}
         </Descriptions.Item>
+        <Descriptions.Item label="收款地址">
+          {data.coin_address ? (
+            <a
+              href={`${TRON_BROWSER[data.coin_code]}/#/address/${
+                data.coin_address
+              }`}
+              target="_blank"
+            >
+              {data.coin_address}
+            </a>
+          ) : (
+            '-'
+          )}
+        </Descriptions.Item>
         <Descriptions.Item label="创建时间">
           {formatDateTime(data.create_time) || '-'}
         </Descriptions.Item>
