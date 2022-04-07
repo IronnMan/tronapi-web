@@ -21,14 +21,6 @@ interface IProps {
   onPageChange: (page: number) => void;
 }
 
-const getAmountTransaction = (transactions: Array<any>) => {
-  const amount = transactions.reduce((pre, item) => {
-    return Decimal.add(pre, item.value);
-  }, 0);
-
-  return formatAmount(amount);
-};
-
 const getAmountRefund = (refund: any) => {
   const amount = refund ? Decimal.toFixed(refund.value, 2) : 0;
   return formatAmount(amount);
@@ -69,37 +61,22 @@ const ListAvatar = (props: { data: ITransaction }) => {
   let avatarText = '';
   let avatarColor = '';
 
-  const amountTransaction = getAmountTransaction(data.transactions);
   const amountRefund = getAmountRefund(data.user_transaction_refund);
 
-  if (
-    [
-      TRANSACTION_STATUS.NORMAL_DONE,
-      TRANSACTION_STATUS.PARTIAL_DONE,
-      TRANSACTION_STATUS.PARTIAL_OVER_DONE,
-      TRANSACTION_STATUS.OVER_DONE,
-      TRANSACTION_STATUS.MANUAL_DONE,
-    ].includes(data.status)
-  ) {
+  if ([TRANSACTION_STATUS.DONE].includes(data.status)) {
     tooltipTitle = (
       <>
         <div className="tw-whitespace-nowrap">
           支付状态：{TRANSACTION_STATUS_TEXT[data.status]}
         </div>
-        <div>支付金额：{`${amountTransaction} ${data.coin_code}`}</div>
+        <div>
+          支付金额：{`${formatAmount(data.coin_amount)} ${data.coin_code}`}
+        </div>
         <div>完成时间：{formatDateTime(data.status_time)}</div>
       </>
     );
     avatarText = '已完成';
     avatarColor = COLOR.GREEN;
-  }
-
-  if (data.status === TRANSACTION_STATUS.PARTIAL) {
-    tooltipTitle = (
-      <div>支付金额：{`${amountTransaction} ${data.coin_code}`}</div>
-    );
-    avatarText = '未足额';
-    avatarColor = COLOR.RED;
   }
 
   if (data.status === TRANSACTION_STATUS.REFUND) {

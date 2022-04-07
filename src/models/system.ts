@@ -52,12 +52,6 @@ const SystemModel: SystemModelType = {
       }
       return response;
     },
-    *sendFau({ payload }, { call, put }) {
-      return yield call(Service.sendFau, payload);
-    },
-    *sendTrx({ payload }, { call, put }) {
-      return yield call(Service.sendTrx, payload);
-    },
     *createTestTransaction({ payload }, { call, put }) {
       const response: any = yield call(Service.createTestTransaction, payload);
       if (response) {
@@ -72,7 +66,13 @@ const SystemModel: SystemModelType = {
       }
       return response;
     },
-    *testWebhookUrl({ payload }, { call, put }) {
+    *sendFau({ payload }, { call }) {
+      return yield call(Service.sendFau, payload);
+    },
+    *sendTrx({ payload }, { call }) {
+      return yield call(Service.sendTrx, payload);
+    },
+    *testWebhookUrl({ payload }, { call }) {
       return yield call(Service.testWebhookUrl, payload);
     },
   },

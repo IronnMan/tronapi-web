@@ -38,7 +38,7 @@ const UserModel: UserModelType = {
     authenticator: '',
   },
   effects: {
-    *getWallet({ payload }, { call, put, select }) {
+    *getWallet({ payload }, { call, put }) {
       const response: any = yield call(Service.getWallet, payload);
       if (response) {
         yield put({ type: 'setWallet', payload: response.data });
@@ -46,7 +46,7 @@ const UserModel: UserModelType = {
       return response;
     },
 
-    *getAuthenticator({ payload }, { call, put, select }) {
+    *getAuthenticator({ payload }, { call, put }) {
       const response: any = yield call(Service.getAuthenticator, payload);
       if (response) {
         yield put({ type: 'setAuthenticator', payload: response.data });
@@ -54,11 +54,11 @@ const UserModel: UserModelType = {
       return response;
     },
 
-    *updateConfig({ payload }, { call, put, select }) {
+    *updateConfig({ payload }, { call }) {
       return yield call(Service.updateConfig, payload);
     },
 
-    *updatePassword({ payload }, { call, put, select }) {
+    *updatePassword({ payload }, { call }) {
       return yield call(Service.updatePassword, payload);
     },
   },

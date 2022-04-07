@@ -15,7 +15,7 @@ export default interface ITransaction {
   status_time: string;
   create_time: string;
   expire_time: string;
+  transaction_hash: string;
   user_transaction_refund: any;
   user_transaction_webhooks: Array<any>;
-  transactions: Array<any>;
 }

@@ -9,7 +9,6 @@ import {
   TwoFactor,
   Notification,
   Withdrawal,
-  Transaction,
   Security,
 } from './components';
 
@@ -26,16 +25,12 @@ const routes = [
   },
 ];
 
-const DEFAULT_TAB = SETTING_TYPE.TRANSACTION;
+const DEFAULT_TAB = SETTING_TYPE.NOTIFICATION;
 
 const SettingPage: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser = {} } = initialState!;
-  const {
-    user_config = {},
-    user_keystone = {},
-    user_transaction_configs,
-  } = currentUser;
+  const { user_config = {}, user_keystone = {} } = currentUser;
 
   const dispatch = useDispatch();
   const { location } = useHistory();
@@ -73,13 +68,6 @@ const SettingPage: React.FC = () => {
       <ContentHeader breadcrumb={{ routes }} title="设置" />
       <div className="main-container">
         <Tabs defaultActiveKey={tab} onChange={(key) => setTab(key)}>
-          <TabPane tab="订单设置" key={SETTING_TYPE.TRANSACTION}>
-            <Transaction
-              onSubmit={onSubmit}
-              data={user_transaction_configs}
-              loading={loading}
-            />
-          </TabPane>
           <TabPane tab="通知设置" key={SETTING_TYPE.NOTIFICATION}>
             <Notification
               onSubmit={onSubmit}

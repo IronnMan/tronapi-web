@@ -96,10 +96,10 @@ const WithdrawalModel: WithdrawalModelType = {
       }
       return response;
     },
-    *create({ payload }, { call, put }) {
+    *create({ payload }, { call }) {
       return yield call(Service.create, payload);
     },
-    *sendWebhook({ payload }, { call, put }) {
+    *sendWebhook({ payload }, { call }) {
       return yield call(Service.sendWebhook, payload);
     },
   },

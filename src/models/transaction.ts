@@ -116,13 +116,13 @@ const TransactionModel: TransactionModelType = {
       }
       return response;
     },
-    *markDone({ payload }, { call, put }) {
+    *markDone({ payload }, { call }) {
       return yield call(Service.markDone, payload);
     },
-    *markRefund({ payload }, { call, put }) {
+    *markRefund({ payload }, { call }) {
       return yield call(Service.markRefund, payload);
     },
-    *sendWebhook({ payload }, { call, put }) {
+    *sendWebhook({ payload }, { call }) {
       return yield call(Service.sendWebhook, payload);
     },
   },
