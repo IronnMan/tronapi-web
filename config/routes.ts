@@ -34,6 +34,12 @@ export default [
             path: '/transaction/list/:id',
             component: '@/pages/transaction/detail',
           },
+          {
+            name: '查询',
+            path: '/transaction/search',
+            exact: true,
+            component: '@/pages/transaction/search',
+          },
           { component: '@/pages/404' },
         ],
       },
