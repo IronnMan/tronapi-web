@@ -1,7 +1,7 @@
 import Header from './header';
 import Links from './links';
-import Wallet from './wallet';
+import Account from './account';
 import Stat from './stat';
 import Notice from './notice';
 
-export { Header, Links, Wallet, Stat, Notice };
+export { Header, Links, Account, Stat, Notice };

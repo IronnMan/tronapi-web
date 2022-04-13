@@ -33,7 +33,6 @@ export interface TransactionModelType {
     getStatOverview: Effect;
     getStatChart: Effect;
     markDone: Effect;
-    markRefund: Effect;
     sendWebhook: Effect;
   };
   reducers: {
@@ -118,9 +117,6 @@ const TransactionModel: TransactionModelType = {
     },
     *markDone({ payload }, { call }) {
       return yield call(Service.markDone, payload);
-    },
-    *markRefund({ payload }, { call }) {
-      return yield call(Service.markRefund, payload);
     },
     *sendWebhook({ payload }, { call }) {
       return yield call(Service.sendWebhook, payload);

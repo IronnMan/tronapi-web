@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'umi';
 import ContentHeader from '@/components/contentHeader';
 import { TransactionModelState } from '@/models/transaction';
 import { ListSearch, ListData } from './components';
-import { usePageContext } from '@/hooks/usePageContext';
 
 const routes = [
   {
@@ -22,21 +21,14 @@ const routes = [
 ];
 
 const TransactionListPage: React.FC<any> = () => {
-  const { coinCode } = usePageContext();
-  const coinCodeRef = React.useRef(coinCode);
-  coinCodeRef.current = coinCode;
-
   const dispatch = useDispatch();
   React.useEffect(() => {
     fetchList();
-  }, [coinCode]);
+  }, []);
 
   const fetchList = () => {
     dispatch({
       type: 'transaction/getList',
-      payload: {
-        coin_code: coinCodeRef.current,
-      },
     });
   };
 

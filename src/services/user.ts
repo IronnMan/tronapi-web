@@ -1,16 +1,6 @@
 import { request } from 'umi';
 
 /**
- * 钱包信息
- */
-export async function getWallet(data = {}) {
-  return request('/invoke/user/wallet', {
-    method: 'GET',
-    params: data,
-  });
-}
-
-/**
  * Authenticator
  */
 export async function getAuthenticator(data = {}) {

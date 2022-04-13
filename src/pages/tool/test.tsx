@@ -7,7 +7,7 @@ import { COIN_OPTIONS, CURRENCY_OPTIONS } from '@/configs/options';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { COIN_TYPE, CURRENCY_TYPE } from '@/configs/enum';
 import { SystemModelState } from '@/models/system';
-import { LINKS } from '@/configs/links';
+import { LINK } from '@/configs/links';
 import styles from './test.less';
 
 const TestPage: React.FC = () => {

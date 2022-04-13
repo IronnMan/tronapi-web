@@ -1,14 +1,9 @@
 'use strict';
 import { Effect, ImmerReducer } from 'umi';
-import { COIN_TYPE, COIN_TEXT } from '@/configs/enum';
 import * as Service from '@/services/user';
 
 export interface UserModelState {
-  wallet: {
-    coin_code: COIN_TYPE;
-    coin_amount: string | number;
-    coin_text: string;
-  };
+  balance: string;
   authenticator: string;
 }
 
@@ -16,13 +11,11 @@ export interface UserModelType {
   namespace: 'user';
   state: UserModelState;
   effects: {
-    getWallet: Effect;
     getAuthenticator: Effect;
     updateConfig: Effect;
     updatePassword: Effect;
   };
   reducers: {
-    setWallet: ImmerReducer<UserModelState>;
     setAuthenticator: ImmerReducer<UserModelState>;
   };
 }
@@ -30,22 +23,10 @@ export interface UserModelType {
 const UserModel: UserModelType = {
   namespace: 'user',
   state: {
-    wallet: {
-      coin_code: COIN_TYPE.USDT,
-      coin_amount: 0,
-      coin_text: COIN_TEXT.USDT,
-    },
+    balance: '',
     authenticator: '',
   },
   effects: {
-    *getWallet({ payload }, { call, put }) {
-      const response: any = yield call(Service.getWallet, payload);
-      if (response) {
-        yield put({ type: 'setWallet', payload: response.data });
-      }
-      return response;
-    },
-
     *getAuthenticator({ payload }, { call, put }) {
       const response: any = yield call(Service.getAuthenticator, payload);
       if (response) {
@@ -63,9 +44,6 @@ const UserModel: UserModelType = {
     },
   },
   reducers: {
-    setWallet(state, action) {
-      state.wallet = action.payload;
-    },
     setAuthenticator(state, action) {
       state.authenticator = action.payload;
     },

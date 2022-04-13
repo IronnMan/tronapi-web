@@ -8,16 +8,6 @@ export enum CURRENCY_TEXT {
   CNY = '人民币',
 }
 
-export enum COIN_TYPE {
-  USDT = 'USDT',
-  FAU = 'FAU',
-}
-
-export enum COIN_TEXT {
-  USDT = '泰达币',
-  FAU = '测试币',
-}
-
 export enum COLOR {
   RED = '#F5222D',
   ORANGE = '#FA541C',

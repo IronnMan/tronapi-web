@@ -17,7 +17,7 @@ export const formatJson = (data: string | undefined): string => {
   return result || '-';
 };
 
-export const formatAmount = (data: string | number, unit: string = '') => {
+export const formatAmount = (data: string | number, unit: string = 'USDT') => {
   if (!data) return unit ? `0.00 ${unit}` : '0.00';
   const formatTmpl = unit ? `#,##0.00 ${unit}` : '#,##0.00';
   const formatValue = Number(data);

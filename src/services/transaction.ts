@@ -51,16 +51,6 @@ export async function markDone(data = {}) {
 }
 
 /**
- * 标记为退款
- */
-export async function markRefund(data = {}) {
-  return request(`/invoke/transaction/mark_refund`, {
-    method: 'POST',
-    data,
-  });
-}
-
-/**
  * 发送 webhook
  */
 export async function sendWebhook(data = {}) {

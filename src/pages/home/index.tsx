@@ -1,30 +1,22 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'umi';
 import { Spin } from 'antd';
-import { Links, Stat, Wallet, Notice } from './components';
-import { usePageContext } from '@/hooks/usePageContext';
+import { Links, Stat, Account, Notice } from './components';
 import { UserModelState } from '@/models/user';
 import { SystemModelState } from '@/models/system';
 import { TransactionModelState } from '@/models/transaction';
 
 const HomePage: React.FC = () => {
-  const { coinCode } = usePageContext();
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     fetchNotice();
-  }, []);
-
-  React.useEffect(() => {
     fetchStat();
-  }, [coinCode]);
+  }, []);
 
   const fetchStat = () => {
     dispatch({
       type: 'transaction/getStatOverview',
-      payload: {
-        coin_code: coinCode,
-      },
     });
   };
 
@@ -34,7 +26,7 @@ const HomePage: React.FC = () => {
     });
   };
 
-  const { wallet }: UserModelState = useSelector((state: any) => state.user);
+  const { balance }: UserModelState = useSelector((state: any) => state.user);
   const { notice }: SystemModelState = useSelector(
     (state: any) => state.system,
   );
@@ -58,7 +50,7 @@ const HomePage: React.FC = () => {
     <div className="ghost-container">
       <Spin size="large" spinning={loadingWallet || loadingStat}>
         <Notice data={notice} loading={loadingNotice} />
-        <Wallet data={wallet} loading={loadingWallet} />
+        <Account data={balance} loading={loadingWallet} />
         <Stat data={data_stat_overview} loading={loadingStat} />
         <Links />
       </Spin>

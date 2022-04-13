@@ -7,7 +7,6 @@ import { history, RequestConfig } from 'umi';
 import { message } from 'antd';
 import find from 'lodash.find';
 import RightContent from '@/components/rightContent';
-import LeftContent from '@/components/leftContent';
 import Footer from '@/components/footer';
 import { getProfile } from '@/services/account';
 import { getInfo } from '@/services/system';
@@ -174,7 +173,6 @@ export const layout = ({
 }): BasicLayoutProps => {
   return {
     rightContentRender: () => <RightContent />,
-    headerContentRender: () => <LeftContent />,
     footerRender: () => <Footer />,
     onPageChange: () => {
       if (isNoAuthPath(history.location.pathname)) {

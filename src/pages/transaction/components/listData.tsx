@@ -79,32 +79,6 @@ const ListAvatar = (props: { data: ITransaction }) => {
     avatarColor = COLOR.GREEN;
   }
 
-  if (data.status === TRANSACTION_STATUS.REFUND) {
-    tooltipTitle = (
-      <>
-        <div>退款金额：{`${amountRefund} ${data.coin_code}`}</div>
-        <div>
-          提交时间：{formatDateTime(data.user_transaction_refund.create_time)}
-        </div>
-      </>
-    );
-    avatarText = '退款中';
-    avatarColor = COLOR.PINK;
-  }
-
-  if (data.status === TRANSACTION_STATUS.REFUND_DONE) {
-    tooltipTitle = (
-      <>
-        <div>退款金额：{`${amountRefund} ${data.coin_code}`}</div>
-        <div>
-          退款时间：{formatDateTime(data.user_transaction_refund.status_time)}
-        </div>
-      </>
-    );
-    avatarText = '已退款';
-    avatarColor = COLOR.CYAN;
-  }
-
   if (data.status === TRANSACTION_STATUS.NEW) {
     if (DateTime.isExpired(data.expire_time)) {
       tooltipTitle = (

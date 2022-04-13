@@ -3,7 +3,6 @@ import { Card, Empty } from 'antd';
 import { Area } from '@ant-design/charts';
 import { COLOR } from '@/configs/enum';
 import { formatThousand, formatAmount } from '@/utils/formater';
-import { usePageContext } from '@/hooks/usePageContext';
 
 interface IProps {
   data: any;
@@ -15,7 +14,6 @@ const DATA_CATEGORY: any = {
 };
 
 const ChartAmount: React.FC<IProps> = (props) => {
-  const { coinCode } = usePageContext();
   const { data } = props;
   const config = {
     data,
@@ -29,7 +27,7 @@ const ChartAmount: React.FC<IProps> = (props) => {
       formatter: (item: any) => {
         return {
           name: DATA_CATEGORY[item.category],
-          value: formatAmount(item.value, coinCode),
+          value: formatAmount(item.value),
         };
       },
     },

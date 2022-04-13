@@ -8,6 +8,7 @@ import {
   WarningOutlined,
 } from '@ant-design/icons';
 import { COLOR } from '@/configs/enum';
+import { LINK } from '@/configs/links';
 import Decimal from '@/utils/decimal';
 import DateTime from '@/utils/datetime';
 
@@ -15,8 +16,6 @@ import {
   TRANSACTION_STATUS,
   TRANSACTION_STATUS_TEXT,
 } from '@/configs/transaction';
-
-import { TRON_BROWSER } from '@/configs/tron';
 
 interface IProps {
   data: ITransaction;
@@ -46,42 +45,11 @@ const TransactionStatus = (props: { data: ITransaction }) => {
           支付时间：{formatDateTime(data.status_time)}
         </Tag>
         <a
-          href={`${TRON_BROWSER[data.coin_code]}/#/transaction/${
-            data.transaction_hash
-          }`}
+          href={`${LINK.BROWSER}/#/transaction/${data.transaction_hash}`}
           target="_blank"
         >
           交易详情 <ArrowRightOutlined />
         </a>
-      </Space>
-    );
-  }
-
-  if (data.status === TRANSACTION_STATUS.REFUND) {
-    return (
-      <Space>
-        <Tag icon={<WarningOutlined />} color={COLOR.PINK}>
-          {TRANSACTION_STATUS_TEXT[data.status]}
-        </Tag>
-        <Tag color={COLOR.GRAY}>
-          退款金额：{`${amountRefund} ${data.coin_code}`}
-        </Tag>
-      </Space>
-    );
-  }
-
-  if (data.status === TRANSACTION_STATUS.REFUND_DONE) {
-    return (
-      <Space>
-        <Tag icon={<CheckCircleOutlined />} color={COLOR.CYAN}>
-          {TRANSACTION_STATUS_TEXT[data.status]}
-        </Tag>
-        <Tag color={COLOR.GRAY}>
-          退款金额：{`${amountRefund} ${data.coin_code}`}
-        </Tag>
-        <Tag color={COLOR.YELLOW}>
-          {formatDateTime(data.user_transaction_refund.status_time)}
-        </Tag>
       </Space>
     );
   }
@@ -143,9 +111,7 @@ const TransactionMeta: React.FC<IProps> = (props) => {
         <Descriptions.Item label="收款地址">
           {data.coin_address ? (
             <a
-              href={`${TRON_BROWSER[data.coin_code]}/#/address/${
-                data.coin_address
-              }`}
+              href={`${LINK.BROWSER}/#/address/${data.coin_address}`}
               target="_blank"
             >
               {data.coin_address}

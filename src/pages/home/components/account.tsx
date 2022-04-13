@@ -1,19 +1,14 @@
 import React from 'react';
 import { Card, Avatar } from 'antd';
 import { formatAmount } from '@/utils/formater';
-import {
-  WithdrawalForm,
-  WithdrawalAction,
-} from '@/pages/withdrawal/components';
 
 interface IProps {
   data: any;
   loading: boolean;
 }
 
-const Wallet: React.FC<IProps> = (props) => {
+const Account: React.FC<IProps> = (props) => {
   const { data } = props;
-  const [withdrawalVisible, setWithdrawalVisible] = React.useState(false);
 
   return (
     <>
@@ -30,18 +25,10 @@ const Wallet: React.FC<IProps> = (props) => {
               </div>
             </div>
           </div>
-          <div>
-            <WithdrawalAction onClick={() => setWithdrawalVisible(true)} />
-          </div>
         </div>
       </Card>
-
-      <WithdrawalForm
-        visible={withdrawalVisible}
-        onCancel={() => setWithdrawalVisible(false)}
-      />
     </>
   );
 };
 
-export default React.memo(Wallet);
+export default React.memo(Account);

@@ -1,15 +1,8 @@
 'use strict';
 
 import { ImmerReducer, Effect } from 'umi';
-import { COIN_TYPE } from '@/configs/enum';
 import * as Service from '@/services/system';
-import Storage from '@/utils/storage';
-import { STORAGE_KEY } from '@/configs';
-
-const storageCoinCode = Storage.getItem(STORAGE_KEY.COINCODE) || COIN_TYPE.USDT;
-
 export interface SystemModelState {
-  coin_code: COIN_TYPE;
   notice: {
     title: string;
     content: string;
@@ -21,14 +14,11 @@ export interface SystemModelType {
   state: SystemModelState;
   effects: {
     getNotice: Effect;
-    sendFau: Effect;
-    sendTrx: Effect;
     testWebhookUrl: Effect;
     createTestTransaction: Effect;
     queryTestTransaction: Effect;
   };
   reducers: {
-    setCoinCode: ImmerReducer<SystemModelState>;
     setNotice: ImmerReducer<SystemModelState>;
     setTestTransaction: ImmerReducer<SystemModelState>;
   };
@@ -37,7 +27,6 @@ export interface SystemModelType {
 const SystemModel: SystemModelType = {
   namespace: 'system',
   state: {
-    coin_code: storageCoinCode as COIN_TYPE,
     notice: {
       title: '',
       content: '',
@@ -66,20 +55,11 @@ const SystemModel: SystemModelType = {
       }
       return response;
     },
-    *sendFau({ payload }, { call }) {
-      return yield call(Service.sendFau, payload);
-    },
-    *sendTrx({ payload }, { call }) {
-      return yield call(Service.sendTrx, payload);
-    },
     *testWebhookUrl({ payload }, { call }) {
       return yield call(Service.testWebhookUrl, payload);
     },
   },
   reducers: {
-    setCoinCode(state, action) {
-      state.coin_code = action.payload;
-    },
     setNotice(state, action) {
       state.notice = action.payload;
     },

@@ -2,11 +2,7 @@ import React from 'react';
 import { Tabs, Spin } from 'antd';
 import { history, useDispatch, useSelector, useParams } from 'umi';
 import ContentHeader from '@/components/contentHeader';
-import {
-  TransactionMeta,
-  TransactionWebhook,
-  TransactionRefund,
-} from './components';
+import { TransactionMeta, TransactionWebhook } from './components';
 
 const routes = [
   {
@@ -85,11 +81,6 @@ const TransactionDetailPage: React.FC<any> = () => {
             {webhookTabVisible && (
               <Tabs.TabPane tab="回调信息" key="2">
                 <TransactionWebhook data={transactionDetail} />
-              </Tabs.TabPane>
-            )}
-            {refundTabVisible && (
-              <Tabs.TabPane tab="退款信息" key="3">
-                <TransactionRefund data={transactionDetail} />
               </Tabs.TabPane>
             )}
           </Tabs>

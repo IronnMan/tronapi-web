@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'umi';
 import { Spin } from 'antd';
 import ContentHeader from '@/components/contentHeader';
 import { ChartOverview, ChartAmount, ChartCount } from './components';
-import { usePageContext } from '@/hooks/usePageContext';
 import { TransactionModelState } from '@/models/transaction';
 
 const routes = [
@@ -22,26 +21,19 @@ const routes = [
 ];
 
 const TransactionReportPage: React.FC<any> = () => {
-  const { coinCode } = usePageContext();
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     fetchData();
-  }, [coinCode]);
+  }, []);
 
   const fetchData = () => {
     dispatch({
       type: 'transaction/getStatOverview',
-      payload: {
-        coin_code: coinCode,
-      },
     });
 
     dispatch({
       type: 'transaction/getStatChart',
-      payload: {
-        coin_code: coinCode,
-      },
     });
   };
 
