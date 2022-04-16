@@ -29,3 +29,13 @@ export async function updatePassword(data = {}) {
     data,
   });
 }
+
+/**
+ *　账单列表
+ */
+export async function getBillList(data = {}) {
+  return request('/invoke/account/bill/list', {
+    method: 'POST',
+    data,
+  });
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import { useModel } from 'umi';
 import { Card, Statistic, Row, Col } from 'antd';
 import { formatAmount } from '@/utils/formater';
-import { usePageContext } from '@/hooks/usePageContext';
 
 interface IProps {
   data: any;
@@ -22,17 +21,13 @@ const cardProps = {
 
 const Stat: React.FC<IProps> = (props) => {
   const { data } = props;
-  const { initialState = {} } = useModel('@@initialState');
-  const { currentUser = {} } = initialState;
-  const { user_config = {} } = currentUser;
-  const { coinCode } = usePageContext();
   return (
     <Card title="订单" bordered={false} className="tw-mb-3">
       <Row gutter={[15, 25]}>
         <Col {...colProps}>
           <Card {...cardProps}>
             <Statistic
-              title={`今日成交金额（${coinCode}）`}
+              title={'今日成交金额（USDT）'}
               value={formatAmount(data.dayDoneAmount)}
             />
           </Card>
@@ -45,7 +40,7 @@ const Stat: React.FC<IProps> = (props) => {
         <Col {...colProps}>
           <Card {...cardProps}>
             <Statistic
-              title={`累计成交金额（${coinCode}）`}
+              title={'累计成交金额（USDT）'}
               value={formatAmount(data.allDoneAmount)}
             />
           </Card>
@@ -53,11 +48,6 @@ const Stat: React.FC<IProps> = (props) => {
         <Col {...colProps}>
           <Card {...cardProps}>
             <Statistic title="累计成交笔数（笔）" value={data.allDoneCount} />
-          </Card>
-        </Col>
-        <Col {...colProps}>
-          <Card {...cardProps}>
-            <Statistic title="账户费率" value={`${user_config.rate * 100}%`} />
           </Card>
         </Col>
       </Row>

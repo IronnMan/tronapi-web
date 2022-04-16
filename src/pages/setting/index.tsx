@@ -8,7 +8,6 @@ import {
   Keystone,
   TwoFactor,
   Notification,
-  Withdrawal,
   Security,
 } from './components';
 
@@ -30,7 +29,7 @@ const DEFAULT_TAB = SETTING_TYPE.NOTIFICATION;
 const SettingPage: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser = {} } = initialState!;
-  const { user_config = {}, user_keystone = {} } = currentUser;
+  const { merchant_config = {}, user_keystone = {} } = currentUser;
 
   const dispatch = useDispatch();
   const { location } = useHistory();
@@ -71,31 +70,28 @@ const SettingPage: React.FC = () => {
           <TabPane tab="通知设置" key={SETTING_TYPE.NOTIFICATION}>
             <Notification
               onSubmit={onSubmit}
-              data={user_config}
-              loading={loading}
-            />
-          </TabPane>
-          <TabPane tab="提现设置" key={SETTING_TYPE.WITHDRAWAL}>
-            <Withdrawal
-              onSubmit={onSubmit}
-              data={user_config}
+              data={merchant_config}
               loading={loading}
             />
           </TabPane>
           <TabPane tab="安全设置" key={SETTING_TYPE.TWOFACTOR}>
             <TwoFactor
               onSubmit={onSubmit}
-              data={user_config}
+              data={merchant_config}
               loading={loading}
             />
           </TabPane>
           <TabPane tab="回调设置" key={SETTING_TYPE.WEBHOOK}>
-            <Webhook onSubmit={onSubmit} data={user_config} loading={loading} />
+            <Webhook
+              onSubmit={onSubmit}
+              data={merchant_config}
+              loading={loading}
+            />
           </TabPane>
           <TabPane tab="接口白名单" key={SETTING_TYPE.SECURITY}>
             <Security
               onSubmit={onSubmit}
-              data={user_config}
+              data={merchant_config}
               loading={loading}
             />
           </TabPane>

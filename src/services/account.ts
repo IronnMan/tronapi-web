@@ -4,7 +4,7 @@ import { request } from 'umi';
  * 登录
  */
 export async function signin(data = {}) {
-  return request('/invoke/user/signin', {
+  return request('/invoke/account/signin', {
     method: 'POST',
     data,
   });
@@ -14,7 +14,7 @@ export async function signin(data = {}) {
  * 注册
  */
 export async function signup(data = {}) {
-  return request('/invoke/user/signup', {
+  return request('/invoke/account/signup', {
     method: 'POST',
     data,
   });
@@ -24,7 +24,7 @@ export async function signup(data = {}) {
  * 账户
  */
 export async function getProfile(data = {}) {
-  return request('/invoke/user/profile', {
+  return request('/invoke/account/profile', {
     method: 'GET',
     params: data,
   });
@@ -34,7 +34,7 @@ export async function getProfile(data = {}) {
  * twofactor
  */
 export async function twofactor(data = {}) {
-  return request('/invoke/user/signin/twofactor', {
+  return request('/invoke/account/signin/twofactor', {
     method: 'POST',
     data,
   });

@@ -2,8 +2,7 @@ import React from 'react';
 import { useDispatch, useHistory, useSelector, history } from 'umi';
 import { Button, Descriptions, Result } from 'antd';
 import Footer from '@/components/footer';
-import { TRON_BROWSER } from '@/configs/tron';
-import { COIN_TYPE } from '@/configs/enum';
+import { LINK } from '@/configs/links';
 import { SystemModelState } from '@/models/system';
 import { formatAmount, formatDateTime } from '@/utils/formater';
 import styles from './test.less';
@@ -38,9 +37,7 @@ const TestResultPage: React.FC = () => {
           key="detail"
           onClick={() =>
             window.open(
-              `${
-                TRON_BROWSER[test_transaction.coin_code as COIN_TYPE]
-              }/#/transaction/${test_transaction.hash}`,
+              `${LINK.BROWSER}/#/transaction/${test_transaction.hash}`,
             )
           }
         >

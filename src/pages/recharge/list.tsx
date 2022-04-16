@@ -1,5 +1,10 @@
 import React from 'react';
+import { Spin, Button } from 'antd';
+import { useDispatch, useSelector } from 'umi';
 import ContentHeader from '@/components/contentHeader';
+import { RechargeModelState } from '@/models/recharge';
+import { ListStat, ListData, FormAdd } from './components';
+import { PlusOutlined } from '@ant-design/icons';
 
 const routes = [
   {
@@ -7,18 +12,65 @@ const routes = [
     breadcrumbName: '首页',
   },
   {
-    path: '/recharge/list',
+    path: '/recharge',
     breadcrumbName: '充值',
   },
 ];
 
 const RechargeListPage: React.FC = () => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    fetchList();
+  }, []);
+
+  const fetchList = () => {
+    dispatch({
+      type: 'recharge/getList',
+    });
+  };
+
+  const {
+    data_list: rechargeList,
+    data_list_params: rechargeParams,
+  }: RechargeModelState = useSelector((state: any) => state.recharge);
+
+  const loading = useSelector(
+    (state: any) => state.loading.effects['recharge/getList'],
+  );
+
+  const onPageChange = (pageIndex: number) => {
+    dispatch({
+      type: 'recharge/setListParams',
+      payload: {
+        page_index: pageIndex,
+      },
+    });
+    fetchList();
+  };
+
   return (
     <>
-      <ContentHeader breadcrumb={{ routes }} title="Faucet">
-        一些说明文案
+      <ContentHeader
+        breadcrumb={{ routes }}
+        title="记录"
+        extra={[
+          <Button type="primary" icon={<PlusOutlined />}>
+            充值　
+          </Button>,
+        ]}
+      >
+        <ListStat />
       </ContentHeader>
-      <div className="main-container">RechargeListPage</div>
+      <div className="main-container">
+        <Spin size="large" spinning={loading}>
+          <ListData
+            data={rechargeList}
+            current={rechargeParams.page_index}
+            onPageChange={onPageChange}
+          />
+        </Spin>
+      </div>
+      <FormAdd />
     </>
   );
 };

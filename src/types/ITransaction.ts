@@ -1,5 +1,4 @@
 import { CURRENCY_TYPE } from '@/configs/enum';
-import { TRANSACTION_STATUS } from '@/configs/transaction';
 
 export default interface ITransaction {
   id: string;
@@ -10,7 +9,7 @@ export default interface ITransaction {
   amount: number;
   coin_amount: number;
   coin_address: string;
-  status: TRANSACTION_STATUS;
+  status: boolean;
   status_time: string;
   create_time: string;
   expire_time: string;

@@ -9,37 +9,24 @@ import {
 } from '@ant-design/icons';
 import { COLOR } from '@/configs/enum';
 import { LINK } from '@/configs/links';
-import Decimal from '@/utils/decimal';
 import DateTime from '@/utils/datetime';
-
-import {
-  TRANSACTION_STATUS,
-  TRANSACTION_STATUS_TEXT,
-} from '@/configs/transaction';
 
 interface IProps {
   data: ITransaction;
   onActionDone?: () => void;
 }
 
-const getAmountRefund = (refund: any) => {
-  const amount = refund ? Decimal.toFixed(refund.value, 2) : 0;
-  return formatAmount(amount);
-};
-
 const TransactionStatus = (props: { data: ITransaction }) => {
   const { data } = props;
 
-  const amountRefund = getAmountRefund(data.user_transaction_refund);
-
-  if ([TRANSACTION_STATUS.DONE].includes(data.status)) {
+  if (data.status === true) {
     return (
       <Space>
         <Tag icon={<CheckCircleOutlined />} color={COLOR.GREEN}>
-          {TRANSACTION_STATUS_TEXT[data.status]}
+          已支付
         </Tag>
         <Tag color={COLOR.GRAY}>
-          支付金额：{`${formatAmount(data.coin_amount)} ${data.coin_code}`}
+          支付金额：{`${formatAmount(data.coin_amount)}`}
         </Tag>
         <Tag color={COLOR.YELLOW}>
           支付时间：{formatDateTime(data.status_time)}
@@ -54,12 +41,12 @@ const TransactionStatus = (props: { data: ITransaction }) => {
     );
   }
 
-  if (data.status === TRANSACTION_STATUS.NEW) {
+  if (data.status === false) {
     if (DateTime.isExpired(data.expire_time)) {
       return (
         <Space>
           <Tag icon={<WarningOutlined />} color={COLOR.YELLOW}>
-            {TRANSACTION_STATUS_TEXT[TRANSACTION_STATUS.EXPIRED]}
+            已过期
           </Tag>
           <Tag color={COLOR.GRAY}>
             过期时间：{formatDateTime(data.expire_time)}
@@ -70,7 +57,7 @@ const TransactionStatus = (props: { data: ITransaction }) => {
       return (
         <Space>
           <Tag icon={<WarningOutlined />} color={COLOR.ORANGE}>
-            {TRANSACTION_STATUS_TEXT[data.status]}
+            未支付
           </Tag>
         </Space>
       );
@@ -104,9 +91,7 @@ const TransactionMeta: React.FC<IProps> = (props) => {
           {data.amount ? formatAmount(data.amount, data.currency) : '-'}
         </Descriptions.Item>
         <Descriptions.Item label="支付金额">
-          {data.coin_amount
-            ? formatAmount(data.coin_amount, data.coin_code)
-            : '-'}
+          {data.coin_amount ? formatAmount(data.coin_amount) : '-'}
         </Descriptions.Item>
         <Descriptions.Item label="收款地址">
           {data.coin_address ? (

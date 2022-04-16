@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'umi';
 import { Spin } from 'antd';
-import { Links, Stat, Account, Notice } from './components';
+import { Links, Stat, Account, Notice, Header } from './components';
 import { UserModelState } from '@/models/user';
 import { SystemModelState } from '@/models/system';
 import { TransactionModelState } from '@/models/transaction';
@@ -47,14 +47,17 @@ const HomePage: React.FC = () => {
   );
 
   return (
-    <div className="ghost-container">
-      <Spin size="large" spinning={loadingWallet || loadingStat}>
-        <Notice data={notice} loading={loadingNotice} />
-        <Account data={balance} loading={loadingWallet} />
-        <Stat data={data_stat_overview} loading={loadingStat} />
-        <Links />
-      </Spin>
-    </div>
+    <>
+      <Header />
+      <div className="ghost-container">
+        <Spin size="large" spinning={loadingWallet || loadingStat}>
+          <Notice data={notice} loading={loadingNotice} />
+          <Account data={{}} loading={false} />
+          <Stat data={data_stat_overview} loading={loadingStat} />
+          <Links />
+        </Spin>
+      </div>
+    </>
   );
 };
 

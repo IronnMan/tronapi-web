@@ -39,45 +39,21 @@ export default [
       },
       {
         name: '地址',
-        icon: 'interaction',
+        icon: 'inbox',
         path: '/address',
-        routes: [
-          {
-            name: '列表',
-            path: '/address/list',
-            exact: true,
-            component: '@/pages/address/list',
-          },
-          { component: '@/pages/404' },
-        ],
+        component: '@/pages/address/list',
       },
       {
         name: '充值',
-        icon: 'interaction',
+        icon: 'shopping',
         path: '/recharge',
-        routes: [
-          {
-            name: '记录',
-            path: '/recharge/list',
-            exact: true,
-            component: '@/pages/recharge/list',
-          },
-          {
-            name: '创建',
-            path: '/recharge/create',
-            exact: true,
-            hideInMenu: true,
-            component: '@/pages/recharge/create',
-          },
-          {
-            name: '结果',
-            path: '/recharge/result',
-            exact: true,
-            hideInMenu: true,
-            component: '@/pages/recharge/result',
-          },
-          { component: '@/pages/404' },
-        ],
+        component: '@/pages/recharge/list',
+      },
+      {
+        name: '账单',
+        icon: 'calendar',
+        path: '/bill',
+        component: '@/pages/bill/list',
       },
       {
         name: '设置',

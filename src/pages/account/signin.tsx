@@ -105,7 +105,7 @@ const SigninPage: React.FC = () => {
           request={onFormRequest}
         >
           <ProFormText
-            name="username"
+            name="name"
             fieldProps={{
               size: 'large',
               prefix: <UserOutlined />,

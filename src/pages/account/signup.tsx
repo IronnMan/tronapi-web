@@ -49,7 +49,7 @@ const SignupPage: React.FC = () => {
           }}
         >
           <ProFormText
-            name="username"
+            name="name"
             fieldProps={{
               size: 'large',
               prefix: <UserOutlined />,

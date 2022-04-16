@@ -3,14 +3,8 @@ import { List, Avatar, Divider, Tooltip } from 'antd';
 import { Link } from 'umi';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import ITransaction from '@/types/ITransaction';
-import {
-  TRANSACTION_STATUS,
-  TRANSACTION_STATUS_TEXT,
-} from '@/configs/transaction';
 import { COLOR } from '@/configs/enum';
 import { formatDateTime, formatAmount } from '@/utils/formater';
-import Decimal from '@/utils/decimal';
-import DateTime from '@/utils/datetime';
 
 interface IProps {
   data: {
@@ -21,16 +15,11 @@ interface IProps {
   onPageChange: (page: number) => void;
 }
 
-const getAmountRefund = (refund: any) => {
-  const amount = refund ? Decimal.toFixed(refund.value, 2) : 0;
-  return formatAmount(amount);
-};
-
 const ListTitle = (props: { data: ITransaction }) => {
   const { data } = props;
   return (
     <Link to={`/transaction/list/${data.id}`}>
-      {formatAmount(data.coin_amount, data.coin_code)}
+      {formatAmount(data.coin_amount)}
       <Divider type="vertical" />
       {formatAmount(data.amount, data.currency)}
     </Link>
@@ -61,36 +50,19 @@ const ListAvatar = (props: { data: ITransaction }) => {
   let avatarText = '';
   let avatarColor = '';
 
-  const amountRefund = getAmountRefund(data.user_transaction_refund);
-
-  if ([TRANSACTION_STATUS.DONE].includes(data.status)) {
+  if (data.status === true) {
     tooltipTitle = (
       <>
-        <div className="tw-whitespace-nowrap">
-          支付状态：{TRANSACTION_STATUS_TEXT[data.status]}
-        </div>
-        <div>
-          支付金额：{`${formatAmount(data.coin_amount)} ${data.coin_code}`}
-        </div>
+        <div className="tw-whitespace-nowrap">支付状态：已支付</div>
+        <div>支付金额：{`${formatAmount(data.coin_amount)}`}</div>
         <div>完成时间：{formatDateTime(data.status_time)}</div>
       </>
     );
-    avatarText = '已完成';
+    avatarText = '已支付';
     avatarColor = COLOR.GREEN;
-  }
-
-  if (data.status === TRANSACTION_STATUS.NEW) {
-    if (DateTime.isExpired(data.expire_time)) {
-      tooltipTitle = (
-        <div>过期时间：{`${formatDateTime(data.expire_time)}`}</div>
-      );
-      avatarText = '已过期';
-      avatarColor = COLOR.YELLOW;
-    } else {
-      tooltipTitle = <div>等待用户付款</div>;
-      avatarText = '未完成';
-      avatarColor = COLOR.ORANGE;
-    }
+  } else {
+    avatarText = '未支付';
+    avatarColor = COLOR.ORANGE;
   }
 
   return (
@@ -130,6 +102,7 @@ const ListData: React.FC<IProps> = (props) => {
               pageSize: 10,
               total: count,
               current,
+              size: 'default',
               showTotal: () => `共 ${count} 条记录`,
               onChange: onPageChange,
             }

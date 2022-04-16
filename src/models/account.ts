@@ -4,7 +4,6 @@ import { Effect } from 'umi';
 import * as Service from '@/services/account';
 
 export interface AccountModelState {}
-
 export interface AccountModelType {
   namespace: 'account';
   state: AccountModelState;

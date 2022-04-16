@@ -3,11 +3,10 @@ import { useModel, useSelector, useDispatch, history } from 'umi';
 import { Button, Divider } from 'antd';
 import { ProFormText, LoginForm, ProFormSelect } from '@ant-design/pro-form';
 import Footer from '@/components/footer';
-import { COIN_OPTIONS, CURRENCY_OPTIONS } from '@/configs/options';
+import { CURRENCY_OPTIONS } from '@/configs/options';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { COIN_TYPE, CURRENCY_TYPE } from '@/configs/enum';
+import { CURRENCY_TYPE } from '@/configs/enum';
 import { SystemModelState } from '@/models/system';
-import { LINK } from '@/configs/links';
 import styles from './test.less';
 
 const TestPage: React.FC = () => {
@@ -48,7 +47,6 @@ const TestPage: React.FC = () => {
           initialValues={{
             currency: CURRENCY_TYPE.CNY,
             amount: 100,
-            coin_code: COIN_TYPE.FAU,
           }}
         >
           <ProFormSelect
@@ -76,17 +74,6 @@ const TestPage: React.FC = () => {
                 message: '仅支持金额类型，最多两位小数',
               },
             ]}
-          />
-          <ProFormSelect
-            name="coin_code"
-            fieldProps={{
-              size: 'large',
-            }}
-            options={COIN_OPTIONS}
-            placeholder="支付币种"
-            label="支付币种"
-            allowClear={false}
-            rules={[{ required: true, message: '支付币种不能为空' }]}
           />
           <div className="tw-mb-6">
             <Button

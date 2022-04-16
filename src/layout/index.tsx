@@ -45,8 +45,8 @@ const Container: React.FC<any> = (props) => {
   const { initialState } = useModel('@@initialState');
   const { currentUser = {} } = initialState!;
   let waterMarkContent = '';
-  if (currentUser.username) {
-    waterMarkContent = currentUser.username;
+  if (currentUser.name) {
+    waterMarkContent = currentUser.name;
   } else {
     const settings: any = initialState?.settings;
     waterMarkContent = settings.name;
