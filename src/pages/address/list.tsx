@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Spin, Button } from 'antd';
 import { useDispatch, useSelector } from 'umi';
 import ContentHeader from '@/components/contentHeader';
@@ -19,6 +19,9 @@ const routes = [
 
 const AddressListPage: React.FC = () => {
   const dispatch = useDispatch();
+
+  const [formVisible, setFormVisible] = useState(false);
+
   React.useEffect(() => {
     fetchList();
   }, []);
@@ -48,13 +51,34 @@ const AddressListPage: React.FC = () => {
     fetchList();
   };
 
+  const onRowUpdate = () => {
+    fetchList();
+  };
+
+  const onAddressAddSuccess = () => {
+    setFormVisible(false);
+    fetchList();
+  };
+
+  const onAddressAddCancel = () => {
+    setFormVisible(false);
+  };
+
+  const onAddressAddClick = () => {
+    setFormVisible(true);
+  };
+
   return (
     <>
       <ContentHeader
         breadcrumb={{ routes }}
         title="列表"
         extra={[
-          <Button type="primary" icon={<PlusOutlined />}>
+          <Button
+            type="primary"
+            onClick={onAddressAddClick}
+            icon={<PlusOutlined />}
+          >
             添加　
           </Button>,
         ]}
@@ -66,11 +90,16 @@ const AddressListPage: React.FC = () => {
           <ListData
             data={addressList}
             current={addressParams.page_index}
+            onRowUpdate={onRowUpdate}
             onPageChange={onPageChange}
           />
         </Spin>
       </div>
-      <FormAdd />
+      <FormAdd
+        visible={formVisible}
+        onCancel={onAddressAddCancel}
+        onSuccess={onAddressAddSuccess}
+      />
     </>
   );
 };
