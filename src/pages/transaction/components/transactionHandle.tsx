@@ -1,7 +1,19 @@
 import React from 'react';
-import { Form, Button, Divider, Alert, Input, Radio } from 'antd';
+import {
+  Form,
+  Tooltip,
+  Button,
+  Table,
+  Divider,
+  Alert,
+  Input,
+  Radio,
+  Modal,
+} from 'antd';
 import { useDispatch, useSelector } from 'umi';
 import ITransaction from '@/types/ITransaction';
+import { formatAmount, formatDateTime } from '@/utils/formater';
+import { LINK } from '@/configs/links';
 
 interface IProps {
   data: ITransaction;
@@ -15,6 +27,7 @@ const HANDLE_TYPE = {
 
 const TransactionHandle: React.FC<IProps> = (props) => {
   const [form] = Form.useForm();
+  const [modal] = Modal.useModal();
 
   const dispatch = useDispatch();
 
@@ -37,9 +50,96 @@ const TransactionHandle: React.FC<IProps> = (props) => {
       });
   };
 
+  const handleDoneConfirm = (transactionId: string) => {
+    modal.confirm({
+      title: 'Use Hook!',
+      content: (
+        <>
+          操作会将订单标注为已支付状态，同时发送系统回调通知，回调金额为订单金额
+        </>
+      ),
+    });
+  };
+
   const loading = useSelector(
     (state: any) => state.loading.effects['transaction/add'],
   );
+
+  const transactionColumns = [
+    {
+      title: '发送地址',
+      dataIndex: 'from',
+      key: 'from',
+      render: (val: any, data: any) => {
+        return <div>{val}</div>;
+      },
+    },
+    {
+      title: '接收地址',
+      dataIndex: 'to',
+      key: 'to',
+      render: (val: any, data: any) => {
+        return (
+          <Tooltip title={val}>
+            <div
+              className="tw-truncate"
+              style={{
+                width: '200px',
+              }}
+            >
+              {val}
+            </div>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: '交易金额',
+      dataIndex: 'value',
+      key: 'value',
+      render: (val: any, data: any) => {
+        return formatAmount(val);
+      },
+    },
+    {
+      title: '哈希',
+      dataIndex: 'hash',
+      key: 'hash',
+      render: (val: any, data: any) => {
+        return (
+          <Tooltip title={val}>
+            <a target="_blank" href={`${LINK.BROWSER}/#/transaction/${val}`}>
+              <div
+                className="tw-truncate"
+                style={{
+                  width: '200px',
+                }}
+              >
+                {val}
+              </div>
+              4
+            </a>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: '交易时间',
+      dataIndex: 'create_time',
+      key: 'create_time',
+      render: (val: any, data: any) => {
+        return formatDateTime(val);
+      },
+    },
+    {
+      title: '操作',
+      dataIndex: 'id',
+      key: 'id',
+      render: (val: any) => {
+        return <div onClick={() => handleDoneConfirm(val)}>关联订单</div>;
+      },
+    },
+  ];
 
   return (
     <>
@@ -117,13 +217,40 @@ const TransactionHandle: React.FC<IProps> = (props) => {
           </Button>
         </Form.Item>
       </Form>
+      <Table
+        rowKey={'id'}
+        dataSource={[
+          {
+            block_timestamp: '1650288060469',
+            create_time: '2022-04-18 21:21:00',
+            from: 'TFMGtUCTtuR7sF56hfHSPMnAYPpw54mG9B',
+            hash: '2T35JDAR6CBRRZFZT6MNTS7TRFQGTPRRS53KSQ5HD4FGT72A62KQCEHHQ56T4X5Q',
+            id: '95bf1b4a151b4f24b1ba6946cf3404e1',
+            merchant_transaction_id: '',
+            to: 'TBikoLfc2MGBFtfSo94ZsDSQxQoeYbG6RB',
+            value: '212.32000000',
+          },
+          {
+            block_timestamp: '1650288060469',
+            create_time: '2022-04-17 21:21:00',
+            from: 'TFMGtUCTtuR7sF56hfHSPMnAYPpw54mG9B',
+            hash: '2T35JDAR6CBRRZFZT6MNTS7TRFQGTPRRS53KSQ5HD4FGT72A62KQCEHHQ56T4X5Q',
+            id: '95bf1b4a151b4f24b1ba6946cf3404e8',
+            merchant_transaction_id: '',
+            to: 'TBikoLfc2MGBFtfSo94ZsDSQxQoeYbG6RB',
+            value: '120.32000000',
+          },
+        ]}
+        columns={transactionColumns}
+        pagination={false}
+      />
 
       <Divider dashed />
       <div>
         <h3>说明</h3>
         <ol>
           <li>
-            该操作会将订单标注为已支付状态，同时发送系统回调通知，回调金额为订单金额。
+            关联订单操作会将订单标注为已支付状态，同时发送系统回调通知，回调金额为订单金额。
           </li>
         </ol>
       </div>

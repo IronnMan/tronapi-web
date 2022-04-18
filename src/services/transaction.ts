@@ -65,7 +65,7 @@ export async function sendWebhook(data = {}) {
  */
 export async function search(data = {}) {
   return request(`/invoke/transaction/search`, {
-    method: 'POST',
-    data,
+    method: 'GET',
+    params: data,
   });
 }
