@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Spin, Button } from 'antd';
 import { useDispatch, useSelector } from 'umi';
 import ContentHeader from '@/components/contentHeader';
 import { RechargeModelState } from '@/models/recharge';
-import { ListStat, ListData, FormAdd } from './components';
+import { ListStat, ListData, FormCreate } from './components';
 import { PlusOutlined } from '@ant-design/icons';
 
 const routes = [
@@ -19,6 +19,9 @@ const routes = [
 
 const RechargeListPage: React.FC = () => {
   const dispatch = useDispatch();
+
+  const [formVisible, setFormVisible] = useState(false);
+
   React.useEffect(() => {
     fetchList();
   }, []);
@@ -48,13 +51,30 @@ const RechargeListPage: React.FC = () => {
     fetchList();
   };
 
+  const onRechargeSuccess = () => {
+    fetchList();
+  };
+
+  const onRechargeCancel = () => {
+    setFormVisible(false);
+  };
+
+  const onRechargeClick = () => {
+    setFormVisible(true);
+  };
+
   return (
     <>
       <ContentHeader
         breadcrumb={{ routes }}
         title="记录"
         extra={[
-          <Button type="primary" icon={<PlusOutlined />}>
+          <Button
+            onClick={onRechargeClick}
+            key="create"
+            type="primary"
+            icon={<PlusOutlined />}
+          >
             充值　
           </Button>,
         ]}
@@ -70,7 +90,11 @@ const RechargeListPage: React.FC = () => {
           />
         </Spin>
       </div>
-      <FormAdd />
+      <FormCreate
+        visible={formVisible}
+        onSuccess={onRechargeSuccess}
+        onCancel={onRechargeCancel}
+      />
     </>
   );
 };

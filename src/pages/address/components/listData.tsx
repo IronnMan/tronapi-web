@@ -1,8 +1,10 @@
 import React from 'react';
-import { Table, Pagination, Badge, message } from 'antd';
+import { Table, Divider, Popconfirm, Pagination, Badge, message } from 'antd';
 import { useDispatch, useSelector } from 'umi';
 import IAddress from '@/types/IAddress';
-import { formatAmount } from '@/utils/formater';
+import { formatDateTime, formatAmount } from '@/utils/formater';
+import { LINK } from '@/configs/links';
+
 interface IProps {
   data: {
     count: number;
@@ -19,17 +21,17 @@ const ListData: React.FC<IProps> = (props) => {
   const { data, current, onPageChange } = props;
   const { rows, count } = data;
 
-  const onAddressUpdate = async (address: string, enabled: boolean) => {
+  const onAddressUpdate = async (id: string, enabled: boolean) => {
     const res: any = await dispatch({
       type: 'address/update',
       payload: {
-        address,
+        id,
         enabled,
       },
     });
 
     if (res && res.success === true) {
-      message.success('新增添加成功');
+      message.success('地址信息更新成功');
       props.onRowUpdate();
     }
   };
@@ -43,6 +45,13 @@ const ListData: React.FC<IProps> = (props) => {
       title: '地址',
       dataIndex: 'address',
       key: 'address',
+      render: (val: string) => {
+        return (
+          <a target="_blank" href={`${LINK.BROWSER}/#/address/${val}`}>
+            {val}
+          </a>
+        );
+      },
     },
     {
       title: '累计收款金额（USDT）',
@@ -56,11 +65,17 @@ const ListData: React.FC<IProps> = (props) => {
       title: '最近收款时间',
       dataIndex: 'receive_latest',
       key: 'receive_latest',
+      render: (val: string) => {
+        return formatDateTime(val);
+      },
     },
     {
       title: '添加时间',
       dataIndex: 'create_time',
       key: 'create_time',
+      render: (val: string) => {
+        return formatDateTime(val);
+      },
     },
     {
       title: '是否启用',
@@ -78,11 +93,32 @@ const ListData: React.FC<IProps> = (props) => {
       dataIndex: 'id',
       key: 'id',
       render: (val: any, data: any) => {
-        const { address, enabled } = data;
+        const { id, enabled } = data;
         if (enabled === true) {
-          return <a onClick={() => onAddressUpdate(address, false)}>禁用</a>;
+          return (
+            <Popconfirm
+              title="确认禁用该收款地址？"
+              onConfirm={() => onAddressUpdate(id, false)}
+              onCancel={() => null}
+              okText="确认"
+              cancelText="取消"
+            >
+              <a href="#">禁用</a>
+            </Popconfirm>
+          );
         }
-        return <a onClick={() => onAddressUpdate(address, true)}>启用</a>;
+
+        return (
+          <Popconfirm
+            title="确认启用该收款地址？"
+            onConfirm={() => onAddressUpdate(id, true)}
+            onCancel={() => null}
+            okText="确认"
+            cancelText="取消"
+          >
+            <a href="#">启用</a>
+          </Popconfirm>
+        );
       },
     },
   ];
@@ -93,6 +129,7 @@ const ListData: React.FC<IProps> = (props) => {
         loading={loading}
         dataSource={data.rows}
         columns={columns}
+        rowKey={'id'}
         pagination={false}
       />
       {rows && rows.length ? (
@@ -106,6 +143,15 @@ const ListData: React.FC<IProps> = (props) => {
           onChange={onPageChange}
         />
       ) : null}
+
+      <Divider dashed />
+      <div>
+        <h3>说明</h3>
+        <ol>
+          <li>请确保至少一条地址信息处于启用状态，否则无法发起订单收款。</li>
+          <li>当前账户最多支持1条地址信息处于启用状态。</li>
+        </ol>
+      </div>
     </>
   );
 };

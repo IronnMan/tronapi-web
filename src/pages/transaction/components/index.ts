@@ -5,6 +5,7 @@ import ChartAmount from './chartAmount';
 import ChartCount from './chartCount';
 
 import TransactionMeta from './transactionMeta';
+import TransactionHandle from './transactionHandle';
 import TransactionWebhook from './transactionWebhook';
 
 export {
@@ -14,5 +15,6 @@ export {
   ChartAmount,
   ChartCount,
   TransactionMeta,
+  TransactionHandle,
   TransactionWebhook,
 };

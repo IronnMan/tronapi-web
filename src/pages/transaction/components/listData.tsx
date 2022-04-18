@@ -1,9 +1,7 @@
 import React from 'react';
-import { List, Avatar, Divider, Tooltip } from 'antd';
+import { Table, Pagination, Tooltip, Divider, Badge } from 'antd';
 import { Link } from 'umi';
-import { ArrowRightOutlined } from '@ant-design/icons';
 import ITransaction from '@/types/ITransaction';
-import { COLOR } from '@/configs/enum';
 import { formatDateTime, formatAmount } from '@/utils/formater';
 
 interface IProps {
@@ -15,139 +13,163 @@ interface IProps {
   onPageChange: (page: number) => void;
 }
 
-const ListTitle = (props: { data: ITransaction }) => {
-  const { data } = props;
-  return (
-    <Link to={`/transaction/list/${data.id}`}>
-      {formatAmount(data.coin_amount)}
-      <Divider type="vertical" />
-      {formatAmount(data.amount, data.currency)}
-    </Link>
-  );
-};
-
-const ListDescr = (props: { data: ITransaction }) => {
-  const { data } = props;
-  return (
-    <>
-      <div className="tw-hidden md:tw-block">
-        <span>订单编号：</span>
-        <span>{data.order_id}</span>
-      </div>
-      <Link
-        to={`/transaction/list/${data.id}`}
-        className="tw-block md:tw-hidden"
-      >
-        详情 <ArrowRightOutlined />
-      </Link>
-    </>
-  );
-};
-
-const ListAvatar = (props: { data: ITransaction }) => {
-  const { data } = props;
-  let tooltipTitle = null;
-  let avatarText = '';
-  let avatarColor = '';
-
-  if (data.status === true) {
-    tooltipTitle = (
-      <>
-        <div className="tw-whitespace-nowrap">支付状态：已支付</div>
-        <div>支付金额：{`${formatAmount(data.coin_amount)}`}</div>
-        <div>完成时间：{formatDateTime(data.status_time)}</div>
-      </>
-    );
-    avatarText = '已支付';
-    avatarColor = COLOR.GREEN;
-  } else {
-    avatarText = '未支付';
-    avatarColor = COLOR.ORANGE;
-  }
-
-  return (
-    <Tooltip title={tooltipTitle} placement="right">
-      <Avatar
-        size={48}
-        shape="square"
-        style={{
-          backgroundColor: avatarColor,
-          verticalAlign: 'middle',
-        }}
-      >
-        {avatarText}
-      </Avatar>
-    </Tooltip>
-  );
-};
-
-const getListActions = (data: ITransaction) => {
-  return [
-    <Link to={`/transaction/list/${data.id}`} className="tw-hidden md:tw-block">
-      详情 <ArrowRightOutlined />
-    </Link>,
-  ];
-};
+const columns = [
+  {
+    title: '订单金额',
+    dataIndex: 'amount',
+    key: 'amount',
+    render: (val: any, data: ITransaction) => {
+      const { amount, currency, coin_amount } = data;
+      return (
+        <div>
+          {formatAmount(coin_amount)}
+          <Divider type="vertical" />
+          {formatAmount(amount, currency)}
+        </div>
+      );
+    },
+  },
+  {
+    title: '订单编号',
+    dataIndex: 'order_id',
+    key: 'order_id',
+    render: (val: any) => {
+      return (
+        <Tooltip title={val}>
+          <div
+            className="tw-truncate"
+            style={{
+              width: '100px',
+            }}
+          >
+            {val}
+          </div>
+        </Tooltip>
+      );
+    },
+  },
+  {
+    title: '产品名称',
+    dataIndex: 'product_name',
+    key: 'product_name',
+    render: (val: any) => {
+      return (
+        <Tooltip title={val}>
+          <div
+            className="tw-truncate"
+            style={{
+              width: '100px',
+            }}
+          >
+            {val}
+          </div>
+        </Tooltip>
+      );
+    },
+  },
+  {
+    title: '用户编号',
+    dataIndex: 'customer_id',
+    key: 'customer_id',
+    render: (val: any) => {
+      return (
+        <Tooltip title={val}>
+          <div
+            className="tw-truncate"
+            style={{
+              width: '100px',
+            }}
+          >
+            {val}
+          </div>
+        </Tooltip>
+      );
+    },
+  },
+  {
+    title: '收款地址',
+    dataIndex: 'coin_address',
+    key: 'coin_address',
+    render: (val: any) => {
+      return (
+        <Tooltip title={val}>
+          <div
+            className="tw-truncate"
+            style={{
+              width: '200px',
+            }}
+          >
+            {val}
+          </div>
+        </Tooltip>
+      );
+    },
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'create_time',
+    key: 'create_time',
+    render: (val: any) => {
+      return formatDateTime(val);
+    },
+  },
+  {
+    title: '订单状态',
+    dataIndex: 'status',
+    key: 'status',
+    render: (val: any) => {
+      if (val === true) {
+        return <Badge status="success" text="已支付" />;
+      }
+      return <Badge status="error" text="未支付" />;
+    },
+  },
+  {
+    title: '完成时间',
+    dataIndex: 'status_time',
+    key: 'status_time',
+    render: (val: any, data: ITransaction) => {
+      const { status } = data;
+      if (status === true) {
+        return formatDateTime(val);
+      }
+      return '-';
+    },
+  },
+  {
+    title: '操作',
+    dataIndex: 'id',
+    key: 'id',
+    render: (val: any) => {
+      return <Link to={`/transaction/list/${val}`}>详情</Link>;
+    },
+  },
+];
 
 const ListData: React.FC<IProps> = (props) => {
   const { data, current, onPageChange } = props;
   const { rows, count } = data;
 
   return (
-    <List
-      dataSource={rows}
-      pagination={
-        rows && rows.length
-          ? {
-              pageSize: 10,
-              total: count,
-              current,
-              size: 'default',
-              showTotal: () => `共 ${count} 条记录`,
-              onChange: onPageChange,
-            }
-          : false
-      }
-      renderItem={(item: ITransaction) => (
-        <List.Item actions={getListActions(item)}>
-          <List.Item.Meta
-            avatar={<ListAvatar data={item} />}
-            title={<ListTitle data={item} />}
-            description={<ListDescr data={item} />}
-          />
-          <div
-            className="tw-mr-10 tw-hidden 2xl:tw-block"
-            style={{ width: 260 }}
-          >
-            <div className="tw-text-gray-500">产品名称：</div>
-            <div
-              style={{ width: 260 }}
-              title={item.product_name}
-              className="tw-whitespace-nowrap tw-overflow-ellipsis tw-overflow-hidden"
-            >
-              {item.product_name}
-            </div>
-          </div>
-          <div
-            className="tw-mr-10 tw-hidden 2xl:tw-block"
-            style={{ width: 260 }}
-          >
-            <div className="tw-text-gray-500">用户编号：</div>
-            <div
-              style={{ width: 260 }}
-              title={item.customer_id}
-              className="tw-whitespace-nowrap tw-overflow-ellipsis tw-overflow-hidden"
-            >
-              {item.customer_id}
-            </div>
-          </div>
-          <div className="tw-hidden sm:tw-block">
-            <div className="tw-text-gray-500">创建时间：</div>
-            <div>{formatDateTime(item.create_time)}</div>
-          </div>
-        </List.Item>
-      )}
-    />
+    <>
+      <Table
+        rowKey={'id'}
+        dataSource={data.rows}
+        columns={columns}
+        pagination={false}
+      />
+      {rows && rows.length ? (
+        <Pagination
+          className="tw-mt-4 tw-text-right"
+          current={current}
+          pageSize={10}
+          size="default"
+          total={count}
+          showTotal={() => `共 ${count} 条记录`}
+          onChange={onPageChange}
+        />
+      ) : null}
+    </>
   );
 };
 

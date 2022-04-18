@@ -37,7 +37,7 @@ const ListSearch: React.FC<IProps> = (props) => {
       form={form}
       className="tw-hidden xl:tw-flex"
     >
-      <Form.Item label="账单时间" name="dateRange">
+      <Form.Item label="时间" name="dateRange">
         <RangePicker
           disabledDate={(current) => current && current > moment().endOf('day')}
         />

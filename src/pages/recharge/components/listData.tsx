@@ -1,8 +1,9 @@
 import React from 'react';
 import { Table, Pagination } from 'antd';
 import IRecharge from '@/types/IRecharge';
-import { formatAmount } from '@/utils/formater';
+import { formatDateTime, formatAmount } from '@/utils/formater';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { LINK } from '@/configs/links';
 
 interface IProps {
   data: {
@@ -34,6 +35,9 @@ const columns = [
     title: '充值时间',
     dataIndex: 'status_time',
     key: 'status_time',
+    render: (val: string) => {
+      return formatDateTime(val);
+    },
   },
   {
     title: '操作',
@@ -42,7 +46,7 @@ const columns = [
     width: 80,
     render: (val: any, data: any) => {
       return (
-        <a>
+        <a target="_blank" href={`${LINK.BROWSER}/#/transaction/${data.hash}`}>
           详情 <ArrowRightOutlined />
         </a>
       );
@@ -56,7 +60,12 @@ const ListData: React.FC<IProps> = (props) => {
 
   return (
     <>
-      <Table dataSource={data.rows} columns={columns} pagination={false} />
+      <Table
+        rowKey={'id'}
+        dataSource={data.rows}
+        columns={columns}
+        pagination={false}
+      />
       {rows && rows.length ? (
         <Pagination
           className="tw-mt-4 tw-text-right"

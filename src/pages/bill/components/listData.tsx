@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Pagination } from 'antd';
 import IBill from '@/types/IBill';
-import { formatAmount } from '@/utils/formater';
+import { formatDateTime, formatAmount } from '@/utils/formater';
 
 interface IProps {
   data: {
@@ -17,6 +17,9 @@ const columns = [
     title: '账单时间',
     dataIndex: 'create_time',
     key: 'create_time',
+    render: (val: string) => {
+      return formatDateTime(val);
+    },
   },
   {
     title: '账单金额（USDT）',
@@ -58,7 +61,12 @@ const ListData: React.FC<IProps> = (props) => {
 
   return (
     <>
-      <Table dataSource={data.rows} columns={columns} pagination={false} />
+      <Table
+        rowKey={'id'}
+        dataSource={data.rows}
+        columns={columns}
+        pagination={false}
+      />
       {rows && rows.length ? (
         <Pagination
           className="tw-mt-4 tw-text-right"

@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons';
 import { COLOR } from '@/configs/enum';
 import { LINK } from '@/configs/links';
-import DateTime from '@/utils/datetime';
 
 interface IProps {
   data: ITransaction;
@@ -18,7 +17,6 @@ interface IProps {
 
 const TransactionStatus = (props: { data: ITransaction }) => {
   const { data } = props;
-
   if (data.status === true) {
     return (
       <Space>
@@ -28,43 +26,22 @@ const TransactionStatus = (props: { data: ITransaction }) => {
         <Tag color={COLOR.GRAY}>
           支付金额：{`${formatAmount(data.coin_amount)}`}
         </Tag>
-        <Tag color={COLOR.YELLOW}>
+        <Tag color={COLOR.GRAY}>
           支付时间：{formatDateTime(data.status_time)}
         </Tag>
-        <a
-          href={`${LINK.BROWSER}/#/transaction/${data.transaction_hash}`}
-          target="_blank"
-        >
+        <a href={`${LINK.BROWSER}/#/transaction/${data.hash}`} target="_blank">
           交易详情 <ArrowRightOutlined />
         </a>
       </Space>
     );
   }
-
-  if (data.status === false) {
-    if (DateTime.isExpired(data.expire_time)) {
-      return (
-        <Space>
-          <Tag icon={<WarningOutlined />} color={COLOR.YELLOW}>
-            已过期
-          </Tag>
-          <Tag color={COLOR.GRAY}>
-            过期时间：{formatDateTime(data.expire_time)}
-          </Tag>
-        </Space>
-      );
-    } else {
-      return (
-        <Space>
-          <Tag icon={<WarningOutlined />} color={COLOR.ORANGE}>
-            未支付
-          </Tag>
-        </Space>
-      );
-    }
-  }
-
-  return <span>-</span>;
+  return (
+    <Space>
+      <Tag icon={<WarningOutlined />} color={COLOR.ORANGE}>
+        未支付
+      </Tag>
+    </Space>
+  );
 };
 
 const TransactionMeta: React.FC<IProps> = (props) => {

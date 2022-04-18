@@ -2,7 +2,11 @@ import React from 'react';
 import { Tabs, Spin } from 'antd';
 import { history, useDispatch, useSelector, useParams } from 'umi';
 import ContentHeader from '@/components/contentHeader';
-import { TransactionMeta, TransactionWebhook } from './components';
+import {
+  TransactionMeta,
+  TransactionWebhook,
+  TransactionHandle,
+} from './components';
 
 const routes = [
   {
@@ -53,13 +57,13 @@ const TransactionDetailPage: React.FC<any> = () => {
   const webhookTabVisible = React.useMemo(() => {
     return (
       transactionDetail &&
-      transactionDetail.user_transaction_webhooks &&
-      transactionDetail.user_transaction_webhooks.length
+      transactionDetail.merchant_transaction_webhooks &&
+      transactionDetail.merchant_transaction_webhooks.length
     );
   }, [transactionDetail]);
 
-  const refundTabVisible = React.useMemo(() => {
-    return transactionDetail && transactionDetail.user_transaction_refund;
+  const handleTabVisible = React.useMemo(() => {
+    return transactionDetail && transactionDetail.status === false;
   }, [transactionDetail]);
 
   return (
@@ -71,18 +75,23 @@ const TransactionDetailPage: React.FC<any> = () => {
       />
       <div className="main-container">
         <Spin size="large" spinning={loading}>
-          <Tabs defaultActiveKey="1">
+          <Tabs defaultActiveKey="3">
             <Tabs.TabPane tab="订单信息" key="1">
               <TransactionMeta
                 data={transactionDetail}
                 onActionDone={fetchDetail}
               />
             </Tabs.TabPane>
-            {webhookTabVisible && (
+            {webhookTabVisible ? (
               <Tabs.TabPane tab="回调信息" key="2">
                 <TransactionWebhook data={transactionDetail} />
               </Tabs.TabPane>
-            )}
+            ) : null}
+            {handleTabVisible ? (
+              <Tabs.TabPane tab="人工处理" key="3">
+                <TransactionHandle data={transactionDetail} />
+              </Tabs.TabPane>
+            ) : null}
           </Tabs>
         </Spin>
       </div>

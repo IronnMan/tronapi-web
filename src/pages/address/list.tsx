@@ -72,10 +72,11 @@ const AddressListPage: React.FC = () => {
     <>
       <ContentHeader
         breadcrumb={{ routes }}
-        title="列表"
+        title="记录"
         extra={[
           <Button
             type="primary"
+            key="add"
             onClick={onAddressAddClick}
             icon={<PlusOutlined />}
           >
@@ -83,7 +84,7 @@ const AddressListPage: React.FC = () => {
           </Button>,
         ]}
       >
-        请确保至少一条地址信息处于启用状态，否则无法发起订单收款。
+        订单收款将会即时转入已启用的收款地址，请确保至少一条地址信息处于启用状态。
       </ContentHeader>
       <div className="main-container">
         <Spin size="large" spinning={loading}>

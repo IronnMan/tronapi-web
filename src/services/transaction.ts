@@ -59,3 +59,13 @@ export async function sendWebhook(data = {}) {
     data,
   });
 }
+
+/**
+ * 查询 - 地址 or hash
+ */
+export async function search(data = {}) {
+  return request(`/invoke/transaction/search`, {
+    method: 'POST',
+    data,
+  });
+}

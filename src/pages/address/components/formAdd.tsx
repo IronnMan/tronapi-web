@@ -24,7 +24,7 @@ const FormAdd: React.FC<IProps> = (props) => {
         });
 
         if (res && res.success === true) {
-          message.success('新增添加成功');
+          message.success('新增地址成功');
           form.resetFields();
           props.onSuccess();
         }

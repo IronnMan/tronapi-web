@@ -65,7 +65,9 @@ const BillListPage: React.FC = () => {
 
   return (
     <>
-      <ContentHeader breadcrumb={{ routes }} title="记录" />
+      <ContentHeader breadcrumb={{ routes }} title="记录">
+        账单金额 = 订单金额 * 账户费率
+      </ContentHeader>
       <div className="main-container">
         <Spin size="large" spinning={loading}>
           <ListSearch
@@ -73,7 +75,6 @@ const BillListPage: React.FC = () => {
             onSubmit={onSearchSubmit}
             onReset={onSearchReset}
           />
-          <Divider dashed style={{ margin: '8px 0' }} />
           <ListData
             data={billList}
             current={billParams.page_index}

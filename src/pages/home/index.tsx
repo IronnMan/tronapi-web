@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'umi';
 import { Spin } from 'antd';
 import { Links, Stat, Account, Notice, Header } from './components';
-import { UserModelState } from '@/models/user';
 import { SystemModelState } from '@/models/system';
 import { TransactionModelState } from '@/models/transaction';
 
@@ -26,7 +25,6 @@ const HomePage: React.FC = () => {
     });
   };
 
-  const { balance }: UserModelState = useSelector((state: any) => state.user);
   const { notice }: SystemModelState = useSelector(
     (state: any) => state.system,
   );
@@ -52,7 +50,7 @@ const HomePage: React.FC = () => {
       <div className="ghost-container">
         <Spin size="large" spinning={loadingWallet || loadingStat}>
           <Notice data={notice} loading={loadingNotice} />
-          <Account data={{}} loading={false} />
+          <Account />
           <Stat data={data_stat_overview} loading={loadingStat} />
           <Links />
         </Spin>

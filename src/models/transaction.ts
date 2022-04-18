@@ -34,6 +34,7 @@ export interface TransactionModelType {
     getStatChart: Effect;
     markDone: Effect;
     sendWebhook: Effect;
+    search: Effect;
   };
   reducers: {
     setList: ImmerReducer<TransactionModelState>;
@@ -114,6 +115,9 @@ const TransactionModel: TransactionModelType = {
         yield put({ type: 'setDetail', payload: response.data });
       }
       return response;
+    },
+    *search({ payload }, { call }) {
+      return yield call(Service.search, payload);
     },
     *markDone({ payload }, { call }) {
       return yield call(Service.markDone, payload);
