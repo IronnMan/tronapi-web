@@ -4,7 +4,6 @@ import { Effect } from 'umi';
 import * as Service from '@/services/account';
 
 export interface AccountModelState {}
-
 export interface AccountModelType {
   namespace: 'account';
   state: AccountModelState;
@@ -19,13 +18,13 @@ const AccountModel: AccountModelType = {
   namespace: 'account',
   state: {},
   effects: {
-    *signin({ payload }, { call, put }) {
+    *signin({ payload }, { call }) {
       return yield call(Service.signin, payload);
     },
-    *signup({ payload }, { call, put }) {
+    *signup({ payload }, { call }) {
       return yield call(Service.signup, payload);
     },
-    *twofactor({ payload }, { call, put }) {
+    *twofactor({ payload }, { call }) {
       return yield call(Service.twofactor, payload);
     },
   },

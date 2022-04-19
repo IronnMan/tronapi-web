@@ -122,7 +122,7 @@ const TwoFactorPage: React.FC = () => {
               提交
             </Button>
           </div>
-          <Divider />
+          <Divider dashed />
           <div>
             <h3>说明</h3>
             <ol>

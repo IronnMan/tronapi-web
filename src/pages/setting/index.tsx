@@ -8,8 +8,6 @@ import {
   Keystone,
   TwoFactor,
   Notification,
-  Withdrawal,
-  Transaction,
   Security,
 } from './components';
 
@@ -26,16 +24,12 @@ const routes = [
   },
 ];
 
-const DEFAULT_TAB = SETTING_TYPE.TRANSACTION;
+const DEFAULT_TAB = SETTING_TYPE.NOTIFICATION;
 
 const SettingPage: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser = {} } = initialState!;
-  const {
-    user_config = {},
-    user_keystone = {},
-    user_transaction_configs,
-  } = currentUser;
+  const { merchant_config = {}, merchant_keystone = {} } = currentUser;
 
   const dispatch = useDispatch();
   const { location } = useHistory();
@@ -73,48 +67,38 @@ const SettingPage: React.FC = () => {
       <ContentHeader breadcrumb={{ routes }} title="设置" />
       <div className="main-container">
         <Tabs defaultActiveKey={tab} onChange={(key) => setTab(key)}>
-          <TabPane tab="订单设置" key={SETTING_TYPE.TRANSACTION}>
-            <Transaction
-              onSubmit={onSubmit}
-              data={user_transaction_configs}
-              loading={loading}
-            />
-          </TabPane>
           <TabPane tab="通知设置" key={SETTING_TYPE.NOTIFICATION}>
             <Notification
               onSubmit={onSubmit}
-              data={user_config}
-              loading={loading}
-            />
-          </TabPane>
-          <TabPane tab="提现设置" key={SETTING_TYPE.WITHDRAWAL}>
-            <Withdrawal
-              onSubmit={onSubmit}
-              data={user_config}
+              data={merchant_config}
               loading={loading}
             />
           </TabPane>
           <TabPane tab="安全设置" key={SETTING_TYPE.TWOFACTOR}>
             <TwoFactor
               onSubmit={onSubmit}
-              data={user_config}
+              data={merchant_config}
               loading={loading}
             />
           </TabPane>
           <TabPane tab="回调设置" key={SETTING_TYPE.WEBHOOK}>
-            <Webhook onSubmit={onSubmit} data={user_config} loading={loading} />
+            <Webhook
+              onSubmit={onSubmit}
+              data={merchant_config}
+              loading={loading}
+            />
           </TabPane>
           <TabPane tab="接口白名单" key={SETTING_TYPE.SECURITY}>
             <Security
               onSubmit={onSubmit}
-              data={user_config}
+              data={merchant_config}
               loading={loading}
             />
           </TabPane>
           <TabPane tab="接口密钥" key={SETTING_TYPE.KEYSTONE}>
             <Keystone
               onSubmit={onSubmit}
-              data={user_keystone}
+              data={merchant_keystone}
               loading={loading}
             />
           </TabPane>

@@ -5,7 +5,7 @@ import { CirclePicker } from 'react-color';
 import Storage from '@/utils/storage';
 import { STORAGE_KEY, THEME_COLORS } from '@/configs';
 import Avatar from './avatarDropdown';
-import { LINKS } from '@/configs/links';
+import { LINK } from '@/configs/links';
 import {
   QuestionCircleOutlined,
   FileOutlined,
@@ -61,7 +61,7 @@ const GlobalHeaderRight: React.FC = () => {
         <span
           className={styles.action}
           onClick={() => {
-            window.open(LINKS.API);
+            window.open(LINK.API);
           }}
         >
           <FileOutlined />
@@ -71,7 +71,7 @@ const GlobalHeaderRight: React.FC = () => {
         <span
           className={styles.action}
           onClick={() => {
-            window.open(LINKS.FAQ);
+            window.open(LINK.FAQ);
           }}
         >
           <QuestionCircleOutlined />

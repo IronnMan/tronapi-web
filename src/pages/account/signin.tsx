@@ -105,7 +105,7 @@ const SigninPage: React.FC = () => {
           request={onFormRequest}
         >
           <ProFormText
-            name="username"
+            name="name"
             fieldProps={{
               size: 'large',
               prefix: <UserOutlined />,
@@ -159,7 +159,7 @@ const SigninPage: React.FC = () => {
               没有账号？免费注册 <ArrowRightOutlined />
             </div>
           </Link>
-          <Divider />
+          <Divider dashed />
           <div>
             <h3>说明</h3>
             <ol>

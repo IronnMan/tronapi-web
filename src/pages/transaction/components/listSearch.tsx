@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { Form, Select, DatePicker, Button, Input } from 'antd';
+import { Form, Divider, Select, DatePicker, Button, Input } from 'antd';
 import moment from 'moment';
 import { SEARCH_STATUS_OPTIONS } from '@/configs/options';
 
@@ -43,14 +43,14 @@ const ListSearch: React.FC<IProps> = (props) => {
     >
       <Form.Item label="关键字" name="keyword">
         <Input
-          placeholder="订单编号、产品名称、用户编号等关键字"
+          placeholder="订单编号、产品名称、用户编号等..."
           max={128}
           style={{
             width: 280,
           }}
         />
       </Form.Item>
-      <Form.Item label="完成状态" name="status">
+      <Form.Item label="支付状态" name="status">
         <Select style={{ width: '120px' }} allowClear placeholder="请选择">
           {SEARCH_STATUS_OPTIONS.map((status, index) => {
             return (
@@ -70,8 +70,7 @@ const ListSearch: React.FC<IProps> = (props) => {
         <Button type="primary" onClick={onSubmit}>
           查询
         </Button>
-      </Form.Item>
-      <Form.Item>
+        <Divider type="vertical" />
         <Button onClick={onReset}>重置</Button>
       </Form.Item>
     </Form>

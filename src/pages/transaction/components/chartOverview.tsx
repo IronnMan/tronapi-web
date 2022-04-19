@@ -1,8 +1,5 @@
 import React from 'react';
 import { Card, Statistic, Row, Col } from 'antd';
-import { useSelector } from 'umi';
-import { usePageContext } from '@/hooks/usePageContext';
-import { UserModelState } from '@/models/user';
 import { formatAmount } from '@/utils/formater';
 
 interface IProps {
@@ -22,8 +19,6 @@ const cardProps = {
 
 const ChartOverview: React.FC<IProps> = (props) => {
   const { data } = props;
-  const { coinCode } = usePageContext();
-  const { wallet }: UserModelState = useSelector((state: any) => state.user);
 
   return (
     <Card bordered={false} className="tw-mb-3">
@@ -31,8 +26,8 @@ const ChartOverview: React.FC<IProps> = (props) => {
         <Col {...colProps}>
           <Card {...cardProps}>
             <Statistic
-              title={`今日成交金额（${coinCode}）`}
-              value={formatAmount(data.dayDoneAmount)}
+              title={`今日成交金额（USDT）`}
+              value={formatAmount(data.dayDoneAmount, '')}
             />
           </Card>
         </Col>
@@ -44,22 +39,14 @@ const ChartOverview: React.FC<IProps> = (props) => {
         <Col {...colProps}>
           <Card {...cardProps}>
             <Statistic
-              title={`累计成交金额（${coinCode}）`}
-              value={formatAmount(data.allDoneAmount)}
+              title={`累计成交金额（USDT）`}
+              value={formatAmount(data.allDoneAmount, '')}
             />
           </Card>
         </Col>
         <Col {...colProps}>
           <Card {...cardProps}>
             <Statistic title="累计成交笔数（笔）" value={data.allDoneCount} />
-          </Card>
-        </Col>
-        <Col {...colProps}>
-          <Card {...cardProps}>
-            <Statistic
-              title={`账户余额（${coinCode}）`}
-              value={formatAmount(wallet.coin_amount)}
-            />
           </Card>
         </Col>
       </Row>

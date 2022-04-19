@@ -123,7 +123,7 @@ const UpdatePwdPage: React.FC = () => {
               <ArrowLeftOutlined /> 返回
             </div>
           </Link>
-          <Divider />
+          <Divider dashed />
           <div>
             <h3>说明</h3>
             <ol>

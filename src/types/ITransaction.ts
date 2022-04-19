@@ -1,5 +1,4 @@
-import { COIN_TYPE, CURRENCY_TYPE } from '@/configs/enum';
-import { TRANSACTION_STATUS } from '@/configs/transaction';
+import { CURRENCY_TYPE } from '@/configs/enum';
 
 export default interface ITransaction {
   id: string;
@@ -8,14 +7,12 @@ export default interface ITransaction {
   product_name: string;
   currency: CURRENCY_TYPE;
   amount: number;
-  coin_code: COIN_TYPE;
   coin_amount: number;
   coin_address: string;
-  status: TRANSACTION_STATUS;
+  status: boolean;
   status_time: string;
   create_time: string;
   expire_time: string;
-  user_transaction_refund: any;
-  user_transaction_webhooks: Array<any>;
-  transactions: Array<any>;
+  hash: string;
+  merchant_transaction_webhooks: Array<any>;
 }

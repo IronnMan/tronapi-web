@@ -5,7 +5,7 @@ import ContentHeader from '@/components/contentHeader';
 import {
   TransactionMeta,
   TransactionWebhook,
-  TransactionRefund,
+  TransactionHandle,
 } from './components';
 
 const routes = [
@@ -57,14 +57,19 @@ const TransactionDetailPage: React.FC<any> = () => {
   const webhookTabVisible = React.useMemo(() => {
     return (
       transactionDetail &&
-      transactionDetail.user_transaction_webhooks &&
-      transactionDetail.user_transaction_webhooks.length
+      transactionDetail.status === true &&
+      transactionDetail.merchant_transaction_webhooks &&
+      transactionDetail.merchant_transaction_webhooks.length
     );
   }, [transactionDetail]);
 
-  const refundTabVisible = React.useMemo(() => {
-    return transactionDetail && transactionDetail.user_transaction_refund;
+  const handleTabVisible = React.useMemo(() => {
+    return transactionDetail && transactionDetail.status !== true;
   }, [transactionDetail]);
+
+  const onHandleSuccess = () => {
+    fetchDetail();
+  };
 
   return (
     <>
@@ -82,16 +87,19 @@ const TransactionDetailPage: React.FC<any> = () => {
                 onActionDone={fetchDetail}
               />
             </Tabs.TabPane>
-            {webhookTabVisible && (
+            {webhookTabVisible ? (
               <Tabs.TabPane tab="回调信息" key="2">
                 <TransactionWebhook data={transactionDetail} />
               </Tabs.TabPane>
-            )}
-            {refundTabVisible && (
-              <Tabs.TabPane tab="退款信息" key="3">
-                <TransactionRefund data={transactionDetail} />
+            ) : null}
+            {handleTabVisible ? (
+              <Tabs.TabPane tab="人工处理" key="3">
+                <TransactionHandle
+                  data={transactionDetail}
+                  onSuccess={onHandleSuccess}
+                />
               </Tabs.TabPane>
-            )}
+            ) : null}
           </Tabs>
         </Spin>
       </div>

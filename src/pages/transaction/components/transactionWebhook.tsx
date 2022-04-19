@@ -19,12 +19,12 @@ interface IProps {
 const TransactionWebhook: React.FC<IProps> = (props) => {
   const { data } = props;
   const dispatch = useDispatch();
-  const { user_transaction_webhooks } = data;
+  const { merchant_transaction_webhooks } = data;
 
   const webhook = React.useMemo(() => {
-    const webhooks = [...user_transaction_webhooks];
+    const webhooks = [...merchant_transaction_webhooks];
     return webhooks[0];
-  }, [user_transaction_webhooks]);
+  }, [merchant_transaction_webhooks]);
 
   const onSendWebhook = async () => {
     const res: any = await dispatch({
@@ -69,13 +69,13 @@ const TransactionWebhook: React.FC<IProps> = (props) => {
                 异常
               </Tag>
             )}
-            <Tag icon={<CodeOutlined />} color={COLOR.PINK}>
+            <Tag icon={<CodeOutlined />} color={COLOR.GRAY}>
               状态码：{webhook.webhook_result_code}
             </Tag>
-            <Tag icon={<CalculatorOutlined />} color={COLOR.YELLOW}>
-              次数：{user_transaction_webhooks.length}
+            <Tag icon={<CalculatorOutlined />} color={COLOR.GRAY}>
+              次数：{merchant_transaction_webhooks.length}
             </Tag>
-            <Tag icon={<CalendarOutlined />} color={COLOR.CYAN}>
+            <Tag icon={<CalendarOutlined />} color={COLOR.GRAY}>
               {formatDateTime(webhook.create_time)}
             </Tag>
           </Space>

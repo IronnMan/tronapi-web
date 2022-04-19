@@ -1,20 +1,10 @@
 import { request } from 'umi';
 
 /**
- * 钱包信息
- */
-export async function getWallet(data = {}) {
-  return request('/invoke/user/wallet', {
-    method: 'GET',
-    params: data,
-  });
-}
-
-/**
  * Authenticator
  */
 export async function getAuthenticator(data = {}) {
-  return request('/invoke/user/authenticator', {
+  return request('/invoke/account/authenticator', {
     method: 'GET',
     params: data,
   });
@@ -24,7 +14,7 @@ export async function getAuthenticator(data = {}) {
  * 更新配置
  */
 export async function updateConfig(data = {}) {
-  return request('/invoke/user/update/config', {
+  return request('/invoke/account/update/config', {
     method: 'POST',
     data,
   });
@@ -34,7 +24,17 @@ export async function updateConfig(data = {}) {
  * 更新密码
  */
 export async function updatePassword(data = {}) {
-  return request('/invoke/user/update/password', {
+  return request('/invoke/account/update/password', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ *　账单列表
+ */
+export async function getBillList(data = {}) {
+  return request('/invoke/account/bill/list', {
     method: 'POST',
     data,
   });

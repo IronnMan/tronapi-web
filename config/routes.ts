@@ -38,24 +38,22 @@ export default [
         ],
       },
       {
-        name: '提现',
-        icon: 'wallet',
-        path: '/withdrawal',
-        routes: [
-          {
-            name: '列表',
-            path: '/withdrawal/list',
-            exact: true,
-            component: '@/pages/withdrawal/list',
-          },
-          {
-            name: '详情',
-            hideInMenu: true,
-            path: '/withdrawal/list/:id',
-            component: '@/pages/withdrawal/detail',
-          },
-          { component: '@/pages/404' },
-        ],
+        name: '地址',
+        icon: 'inbox',
+        path: '/address',
+        component: '@/pages/address/list',
+      },
+      {
+        name: '充值',
+        icon: 'shopping',
+        path: '/recharge',
+        component: '@/pages/recharge/list',
+      },
+      {
+        name: '账单',
+        icon: 'calendar',
+        path: '/bill',
+        component: '@/pages/bill/list',
       },
       {
         name: '设置',
@@ -69,22 +67,14 @@ export default [
         path: '/tool',
         routes: [
           {
-            name: 'Faucet',
-            path: '/tool/faucet',
-            component: '@/pages/tool/faucet',
-          },
-          {
             name: '订单测试',
             path: '/tool/test',
-            layout: false,
             component: '@/pages/tool/test',
           },
           {
-            name: '订单测试',
-            path: '/tool/test/result',
-            layout: false,
-            hideInMenu: true,
-            component: '@/pages/tool/testResult',
+            name: '地址生成',
+            path: '/tool/generate',
+            component: '@/pages/tool/generate',
           },
           { component: '@/pages/404' },
         ],

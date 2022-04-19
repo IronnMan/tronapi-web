@@ -1,122 +1,175 @@
-import React from 'react';
-import { useModel, useSelector, useDispatch, history } from 'umi';
-import { Button, Divider } from 'antd';
-import { ProFormText, LoginForm, ProFormSelect } from '@ant-design/pro-form';
-import Footer from '@/components/footer';
-import { COIN_OPTIONS, CURRENCY_OPTIONS } from '@/configs/options';
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { COIN_TYPE, CURRENCY_TYPE } from '@/configs/enum';
-import { SystemModelState } from '@/models/system';
-import { LINKS } from '@/configs/links';
-import styles from './test.less';
+import React, { useState, useRef, useEffect } from 'react';
+import { Form, Input, Modal, Divider, Select, Button } from 'antd';
+import { useDispatch, useSelector } from 'umi';
+import ContentHeader from '@/components/contentHeader';
+import { CURRENCY_TYPE } from '@/configs/enum';
+import { CURRENCY_OPTIONS } from '@/configs/options';
+import { formatAmount } from '@/utils/formater';
 
-const TestPage: React.FC = () => {
+const { Option } = Select;
+
+const routes = [
+  {
+    path: '/',
+    breadcrumbName: '首页',
+  },
+  {
+    path: '/tool/test',
+    breadcrumbName: '工具',
+  },
+];
+
+const ToolTestPage: React.FC = () => {
+  const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const { initialState } = useModel('@@initialState');
 
-  const { test_transaction: transactionInfo }: SystemModelState = useSelector(
-    (state: any) => state.system,
-  );
-  const { cashier_url } = transactionInfo;
-  if (cashier_url) {
-    window.location.href = cashier_url;
-    return null;
-  }
+  const [queryLoading, setQueryLoading] = useState(false);
+  const [buttonText, setButtonText] = useState('提交');
+  const [queryTimer] = useState<any>(null);
+  const queryTimerRef = useRef(queryTimer);
 
-  const onSubmit = (values: any) => {
-    dispatch({
-      type: 'system/createTestTransaction',
-      payload: { ...values },
-    });
+  const handleReset = () => {
+    if (queryTimerRef.current) {
+      clearInterval(queryTimerRef.current);
+    }
+    setQueryLoading(false);
+    setButtonText('提交');
   };
-  const { logo, name }: any = initialState?.settings;
+
+  const handleQuery = async (id: string) => {
+    const queryHandler = async () => {
+      const res: any = await dispatch({
+        type: 'system/queryTestTransaction',
+        payload: {
+          id,
+        },
+      });
+      if (res && res.success === true) {
+        const { data } = res;
+        const { status, coin_amount } = data;
+        if (status === true) {
+          Modal.success({
+            title: '恭喜你，订单支付成功！',
+            content: <div>支付金额: {formatAmount(coin_amount)}。</div>,
+          });
+
+          setQueryLoading(false);
+          setButtonText('提交');
+          clearInterval(queryTimerRef.current);
+        }
+      }
+    };
+    const timer = setInterval(queryHandler, 1000);
+    queryTimerRef.current = timer;
+  };
+
+  const handleSubmit = () => {
+    form
+      .validateFields()
+      .then(async (values) => {
+        handleReset();
+
+        const res: any = await dispatch({
+          type: 'system/createTestTransaction',
+          payload: values,
+        });
+
+        if (res && res.success === true) {
+          const { id, cashier_url } = res.data;
+          handleQuery(id);
+          setQueryLoading(true);
+          setButtonText('请在打开的页面中完成支付...');
+          window.open(cashier_url);
+        }
+      })
+      .catch((err) => {
+        console.info('validate error:', err);
+      });
+  };
+
+  useEffect(() => {
+    return () => {
+      handleReset();
+    };
+  }, []);
+
   const loading = useSelector(
     (state: any) => state.loading.effects['system/createTestTransaction'],
   );
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <LoginForm
-          logo={logo || process.env.APP_LOGO}
-          title={name || process.env.APP_NAME}
-          subTitle={'订单测试'}
-          submitter={false}
-          onFinish={async (values) => {
-            await onSubmit(values);
-          }}
+    <>
+      <ContentHeader breadcrumb={{ routes }} title="订单测试"></ContentHeader>
+      <div className="main-container">
+        <Form
+          form={form}
+          layout="vertical"
+          name="transactionHandle"
           initialValues={{
             currency: CURRENCY_TYPE.CNY,
-            amount: 100,
-            coin_code: COIN_TYPE.FAU,
+            amount: '100',
           }}
+          autoComplete="off"
         >
-          <ProFormSelect
-            name="currency"
-            fieldProps={{
-              size: 'large',
-            }}
-            options={CURRENCY_OPTIONS}
-            placeholder="订单币种"
-            label="订单币种"
-            allowClear={false}
-            rules={[{ required: true, message: '订单币种不能为空' }]}
-          />
-          <ProFormText
-            name="amount"
-            fieldProps={{
-              size: 'large',
-            }}
+          <Form.Item label="订单币种" name="currency">
+            <Select style={{ width: '400px' }}>
+              {CURRENCY_OPTIONS.map((currency, index) => {
+                return (
+                  <Option key={index} value={currency.value}>
+                    {currency.label}
+                  </Option>
+                );
+              })}
+            </Select>
+          </Form.Item>
+          <Form.Item
             label="订单金额"
-            placeholder="订单金额"
+            name="amount"
             rules={[
               { required: true, message: '订单金额不能为空' },
               {
-                pattern: /^(?:0|[1-9]\d{0,8})(?:\.\d{0,1}[1-9])?$/,
+                pattern:
+                  /^((0{1}\.\d{1,2})|([1-9]\d*\.{1}\d{1,2})|([1-9]+\d*))$/i,
                 message: '仅支持金额类型，最多两位小数',
               },
             ]}
-          />
-          <ProFormSelect
-            name="coin_code"
-            fieldProps={{
-              size: 'large',
-            }}
-            options={COIN_OPTIONS}
-            placeholder="支付币种"
-            label="支付币种"
-            allowClear={false}
-            rules={[{ required: true, message: '支付币种不能为空' }]}
-          />
-          <div className="tw-mb-6">
+          >
+            <Input
+              placeholder="请输入订单金额..."
+              maxLength={34}
+              style={{ width: '400px' }}
+            />
+          </Form.Item>
+
+          <Form.Item>
             <Button
+              loading={loading || queryLoading}
+              onClick={handleSubmit}
               type="primary"
-              loading={loading}
-              htmlType="submit"
-              block
-              size="large"
             >
-              提交
+              {buttonText}
             </Button>
-          </div>
-          <div className="tw-text-center">
-            <a href="#!" onClick={() => history.push('/')}>
-              退出 <ArrowRightOutlined />
-            </a>
-          </div>
-          <Divider />
-          <div>
-            <h3>说明</h3>
-            <ol>
-              <li>本页面功能演示相关订单接口的创建及支付流程。</li>
-              <li>可登录系统免费获取测试币用于测试。</li>
-            </ol>
-          </div>
-        </LoginForm>
+
+            {queryLoading ? (
+              <>
+                <Divider type="vertical" />
+                <Button onClick={handleReset}>取消</Button>
+              </>
+            ) : null}
+          </Form.Item>
+        </Form>
+        <Divider dashed />
+        <div>
+          <h3>说明</h3>
+          <ol>
+            <li>
+              该页面功能用于测试订单支付流程。测试金额会进入商户收款地址。
+            </li>
+          </ol>
+        </div>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 
-export default TestPage;
+export default ToolTestPage;

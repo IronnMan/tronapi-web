@@ -33,8 +33,8 @@ export interface TransactionModelType {
     getStatOverview: Effect;
     getStatChart: Effect;
     markDone: Effect;
-    markRefund: Effect;
     sendWebhook: Effect;
+    search: Effect;
   };
   reducers: {
     setList: ImmerReducer<TransactionModelState>;
@@ -85,8 +85,8 @@ const TransactionModel: TransactionModelType = {
         const [startDate, endDate] = dateRange;
         list_search_params = {
           ...list_search_params,
-          start_date: formatDateTime(startDate),
-          end_date: formatDateTime(endDate),
+          start_date: formatDateTime(startDate, 'YYYY-MM-DD 00:00:00'),
+          end_date: formatDateTime(endDate, 'YYYY-MM-DD 23:59:59'),
         };
       }
       const response: any = yield call(Service.getList, list_search_params);
@@ -116,13 +116,13 @@ const TransactionModel: TransactionModelType = {
       }
       return response;
     },
-    *markDone({ payload }, { call, put }) {
+    *search({ payload }, { call }) {
+      return yield call(Service.search, payload);
+    },
+    *markDone({ payload }, { call }) {
       return yield call(Service.markDone, payload);
     },
-    *markRefund({ payload }, { call, put }) {
-      return yield call(Service.markRefund, payload);
-    },
-    *sendWebhook({ payload }, { call, put }) {
+    *sendWebhook({ payload }, { call }) {
       return yield call(Service.sendWebhook, payload);
     },
   },

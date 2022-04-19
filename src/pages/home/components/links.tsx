@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Avatar, Row, Col } from 'antd';
-import { LINKS } from '@/configs/links';
+import { LINK } from '@/configs/links';
 import { COLOR } from '@/configs/enum';
 
 import {
@@ -14,28 +14,28 @@ const APP_LINKS = [
   {
     name: '接入文档',
     descr: '系统开发接入文档',
-    url: LINKS.API,
+    url: LINK.API,
     color: COLOR.GREEN,
     icon: CodeOutlined,
   },
   {
     name: '常见问题',
     descr: '有问题就会有答案',
-    url: LINKS.FAQ,
+    url: LINK.FAQ,
     color: COLOR.ORANGE,
     icon: QuestionCircleOutlined,
   },
   {
     name: 'GitHub',
     descr: '项目开源地址',
-    url: LINKS.GITHUB,
+    url: LINK.GITHUB,
     color: COLOR.PINK,
     icon: GithubOutlined,
   },
   {
     name: 'Binance',
     descr: '中心化交易所',
-    url: LINKS.BINANCE,
+    url: LINK.BINANCE,
     color: COLOR.PURPLE,
     icon: RadarChartOutlined,
   },

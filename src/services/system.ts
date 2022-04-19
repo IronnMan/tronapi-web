@@ -31,26 +31,6 @@ export async function testWebhookUrl(data = {}) {
 }
 
 /**
- * 发送 fau
- */
-export async function sendFau(data = {}) {
-  return request('/invoke/system/faucet/fau', {
-    method: 'POST',
-    data,
-  });
-}
-
-/**
- * 发送 trx
- */
-export async function sendTrx(data = {}) {
-  return request('/invoke/system/faucet/trx', {
-    method: 'POST',
-    data,
-  });
-}
-
-/**
  * 测试订单 - 创建
  */
 export async function createTestTransaction(data = {}) {
