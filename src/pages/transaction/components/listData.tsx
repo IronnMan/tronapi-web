@@ -15,18 +15,22 @@ interface IProps {
 
 const columns = [
   {
+    title: '支付金额',
+    dataIndex: 'coin_amount',
+    key: 'coin_amount',
+    width: 150,
+    render: (val: any, data: ITransaction) => {
+      return <div>{formatAmount(val)}</div>;
+    },
+  },
+  {
     title: '订单金额',
     dataIndex: 'amount',
     key: 'amount',
+    width: 150,
     render: (val: any, data: ITransaction) => {
-      const { amount, currency, coin_amount } = data;
-      return (
-        <div>
-          {formatAmount(coin_amount)}
-          <Divider type="vertical" />
-          {formatAmount(amount, currency)}
-        </div>
-      );
+      const { currency } = data;
+      return <div>{formatAmount(val, currency)}</div>;
     },
   },
   {

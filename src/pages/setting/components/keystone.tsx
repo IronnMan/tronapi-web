@@ -83,7 +83,7 @@ const KeyStone: React.FC<IProps> = (props) => {
           </Space>
         </Form.Item>
       </Form>
-      <Divider />
+      <Divider dashed />
       <div>
         <h3>说明</h3>
         <ol>

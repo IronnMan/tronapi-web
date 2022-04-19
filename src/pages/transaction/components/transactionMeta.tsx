@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, Tag, Space } from 'antd';
+import { Descriptions, Divider, Tag, Space } from 'antd';
 import ITransaction from '@/types/ITransaction';
 import { formatAmount, formatDateTime } from '@/utils/formater';
 import {
@@ -22,9 +22,6 @@ const TransactionStatus = (props: { data: ITransaction }) => {
       <Space>
         <Tag icon={<CheckCircleOutlined />} color={COLOR.GREEN}>
           已支付
-        </Tag>
-        <Tag color={COLOR.GRAY}>
-          支付金额：{`${formatAmount(data.coin_amount)}`}
         </Tag>
         <Tag color={COLOR.GRAY}>
           支付时间：{formatDateTime(data.status_time)}
@@ -89,6 +86,20 @@ const TransactionMeta: React.FC<IProps> = (props) => {
           <TransactionStatus data={data} />
         </Descriptions.Item>
       </Descriptions>
+
+      {data.status === false ? (
+        <>
+          <Divider dashed />
+          <div>
+            <h3>说明</h3>
+            <ol>
+              <li>
+                如用户实际支付金额与订单金额不匹配，导致订单未完成且无回调通知，可切换至人工处理标签页进行处理。
+              </li>
+            </ol>
+          </div>
+        </>
+      ) : null}
     </>
   );
 };

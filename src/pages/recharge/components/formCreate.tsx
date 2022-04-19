@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'umi';
+import { useDispatch, useSelector, useModel } from 'umi';
 import { Modal, Form, Alert, Tag, Input } from 'antd';
 import { formatAmount } from '@/utils/formater';
 
@@ -14,6 +14,8 @@ const amounts = [10, 20, 50, 100, 200, 500, 1000, 2000, 5000];
 const FormCreate: React.FC<IProps> = (props) => {
   const dispatch = useDispatch();
 
+  const { initialState, setInitialState } = useModel('@@initialState');
+
   const [queryLoading, setQueryLoading] = useState(false);
   const [okButtonText, setOkButtonText] = useState('提交');
 
@@ -25,6 +27,16 @@ const FormCreate: React.FC<IProps> = (props) => {
 
   const [form] = Form.useForm();
   const { visible } = props;
+
+  const handleSuccess = async () => {
+    const userInfo = await initialState?.fetchUserInfo?.();
+    if (userInfo) {
+      await setInitialState((s) => ({
+        ...s,
+        currentUser: userInfo,
+      }));
+    }
+  };
 
   const handleQuery = async (id: string) => {
     const queryHandler = async () => {
@@ -43,6 +55,7 @@ const FormCreate: React.FC<IProps> = (props) => {
           setResultAmount(amount);
           setResultVisible(true);
           clearInterval(queryTimerRef.current);
+          handleSuccess();
           props.onSuccess();
         }
       }
@@ -98,7 +111,7 @@ const FormCreate: React.FC<IProps> = (props) => {
   const tags = () => {
     return (
       <div className="tw-mt-2">
-        常用金额：
+        常用充值金额：
         {amounts.map((item, index) => {
           return (
             <a

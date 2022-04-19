@@ -85,8 +85,8 @@ const TransactionModel: TransactionModelType = {
         const [startDate, endDate] = dateRange;
         list_search_params = {
           ...list_search_params,
-          start_date: formatDateTime(startDate),
-          end_date: formatDateTime(endDate),
+          start_date: formatDateTime(startDate, 'YYYY-MM-DD 00:00:00'),
+          end_date: formatDateTime(endDate, 'YYYY-MM-DD 23:59:59'),
         };
       }
       const response: any = yield call(Service.getList, list_search_params);

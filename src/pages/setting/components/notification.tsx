@@ -21,9 +21,7 @@ interface IProps {
 const NOTIFICATION_TYPE = [
   'notify_signin_enabled',
   'notify_transaction_enabled',
-  'notify_refund_enabled',
-  'notify_partial_enabled',
-  'notify_withdrawal_enabled',
+  'notify_balance_enabled',
 ];
 
 const Notification: React.FC<IProps> = (props) => {
@@ -36,18 +34,14 @@ const Notification: React.FC<IProps> = (props) => {
       email,
       notify_signin_enabled,
       notify_transaction_enabled,
-      notify_withdrawal_enabled,
-      notify_refund_enabled,
-      notify_partial_enabled,
+      notify_balance_enabled,
     } = data;
 
     const types = [];
 
     notify_signin_enabled && types.push('notify_signin_enabled');
     notify_transaction_enabled && types.push('notify_transaction_enabled');
-    notify_withdrawal_enabled && types.push('notify_withdrawal_enabled');
-    notify_refund_enabled && types.push('notify_refund_enabled');
-    notify_partial_enabled && types.push('notify_partial_enabled');
+    notify_balance_enabled && types.push('notify_balance_enabled');
 
     form.setFieldsValue({
       email,
@@ -109,12 +103,6 @@ const Notification: React.FC<IProps> = (props) => {
           <Checkbox.Group>
             <Row>
               <Col span={24}>
-                <Checkbox value="notify_signin_enabled" className="tw-mb-2">
-                  系统登录成功
-                </Checkbox>
-                <p className="tw-text-gray-500">成功登录系统时发送通知</p>
-              </Col>
-              <Col span={24}>
                 <Checkbox
                   value="notify_transaction_enabled"
                   className="tw-mb-2"
@@ -124,26 +112,16 @@ const Notification: React.FC<IProps> = (props) => {
                 <p className="tw-text-gray-500">订单处理完成时发送通知</p>
               </Col>
               <Col span={24}>
-                <Checkbox value="notify_partial_enabled" className="tw-mb-2">
-                  订单部分付款
+                <Checkbox value="notify_balance_enabled" className="tw-mb-2">
+                  账户余额不足
                 </Checkbox>
-                <p className="tw-text-gray-500">
-                  订单部分付款时发送通知，如已配置自动完成或自动退款，则不会发送通知。
-                </p>
+                <p className="tw-text-gray-500">账户余额不足时发送通知</p>
               </Col>
               <Col span={24}>
-                <Checkbox value="notify_refund_enabled" className="tw-mb-2">
-                  订单退款完成
+                <Checkbox value="notify_signin_enabled" className="tw-mb-2">
+                  系统登录成功
                 </Checkbox>
-                <p className="tw-text-gray-500">
-                  订单退款完成时发送通知，包括自动退款和手动退款
-                </p>
-              </Col>
-              <Col span={24}>
-                <Checkbox value="notify_withdrawal_enabled" className="tw-mb-2">
-                  提现处理完成
-                </Checkbox>
-                <p className="tw-text-gray-500">提现处理完成时发送通知。</p>
+                <p className="tw-text-gray-500">成功登录系统时发送通知</p>
               </Col>
             </Row>
           </Checkbox.Group>
@@ -162,7 +140,7 @@ const Notification: React.FC<IProps> = (props) => {
           </Space>
         </Form.Item>
       </Form>
-      <Divider />
+      <Divider dashed />
       <div>
         <h3>说明</h3>
         <ol>

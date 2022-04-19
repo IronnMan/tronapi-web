@@ -16,10 +16,9 @@ const WebHook: React.FC<IProps> = (props) => {
   const dispatch = useDispatch();
   const [testField, setTestField] = React.useState('');
   React.useEffect(() => {
-    const { transaction_webhook_url, withdrawal_webhook_url } = data;
+    const { transaction_webhook_url } = data;
     form.setFieldsValue({
       transaction_webhook_url,
-      withdrawal_webhook_url,
     });
   }, [data]);
 
@@ -69,10 +68,9 @@ const WebHook: React.FC<IProps> = (props) => {
   );
 
   const initialState = React.useMemo(() => {
-    const { transaction_webhook_url, withdrawal_webhook_url } = data;
+    const { transaction_webhook_url } = data;
     return {
       transaction_webhook_url,
-      withdrawal_webhook_url,
     };
   }, [data]);
 
@@ -113,34 +111,6 @@ const WebHook: React.FC<IProps> = (props) => {
           </Input.Group>
         </Form.Item>
 
-        <Form.Item label="提现回调地址">
-          <Input.Group compact>
-            <Form.Item
-              noStyle
-              name="withdrawal_webhook_url"
-              rules={[
-                {
-                  pattern:
-                    /^(https?:\/\/)([0-9a-z.]+)(:[0-9]+)?([/0-9a-z.]+)?(\?[0-9a-z&=]+)?(#[0-9-a-z]+)?/i,
-                  message: '仅支持以 http 或 https 开头的链接类型',
-                },
-              ]}
-            >
-              <Input
-                placeholder="请输入以 http 或 https 开头的链接类型..."
-                style={{ width: '400px' }}
-              />
-            </Form.Item>
-            <Button
-              type="default"
-              loading={testField === 'withdrawal_webhook_url' && loadingTest}
-              onClick={() => onTest('withdrawal_webhook_url')}
-            >
-              测试
-            </Button>
-          </Input.Group>
-        </Form.Item>
-
         <Form.Item>
           <Space>
             <Button
@@ -154,17 +124,13 @@ const WebHook: React.FC<IProps> = (props) => {
           </Space>
         </Form.Item>
       </Form>
-      <Divider />
+      <Divider dashed />
       <div>
         <h3>说明</h3>
         <ol>
           <li>
             订单回调地址将用于成功后的回调通知。如创建订单接口未指定 notify_url
             参数，则会使用此处配置的地址。
-          </li>
-          <li>
-            提现回调地址将用于提现成功后的回调通知。如创建提现接口未指定
-            notify_url 参数，则会使用此处配置的地址。
           </li>
           <li>回调地址仅支持以 http 或 https 开头的链接类型。</li>
           <li>

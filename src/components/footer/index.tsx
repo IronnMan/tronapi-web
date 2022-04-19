@@ -5,11 +5,15 @@ import { GithubOutlined } from '@ant-design/icons';
 
 export default () => {
   const { initialState } = useModel('@@initialState');
-  const { name }: any = initialState?.settings;
+  const { name, config }: any = initialState?.settings;
   const currentYear = new Date().getFullYear();
+  let copyRight = `${currentYear} ${name}`;
+  if (config && config.telegram) {
+    copyRight += ` - telegram: @${config.telegram}`;
+  }
   return (
     <DefaultFooter
-      copyright={`${currentYear} ${name}`}
+      copyright={copyRight}
       links={[
         {
           key: 'api',

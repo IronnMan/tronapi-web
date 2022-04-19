@@ -1,8 +1,11 @@
 import moment from 'moment';
 import NumberFormat from 'number-format.js';
 
-export const formatDateTime = (date: string | undefined): string => {
-  return date ? moment(date).format('YYYY-MM-DD HH:mm:ss') : '';
+export const formatDateTime = (
+  date: string | undefined,
+  formatter = 'YYYY-MM-DD HH:mm:ss',
+): string => {
+  return date ? moment(date).format(formatter) : '';
 };
 
 export const formatJson = (data: string | undefined): string => {

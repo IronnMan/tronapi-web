@@ -28,7 +28,7 @@ const Stat: React.FC<IProps> = (props) => {
           <Card {...cardProps}>
             <Statistic
               title={'今日成交金额（USDT）'}
-              value={formatAmount(data.dayDoneAmount)}
+              value={formatAmount(data.dayDoneAmount, '')}
             />
           </Card>
         </Col>
@@ -41,7 +41,7 @@ const Stat: React.FC<IProps> = (props) => {
           <Card {...cardProps}>
             <Statistic
               title={'累计成交金额（USDT）'}
-              value={formatAmount(data.allDoneAmount)}
+              value={formatAmount(data.allDoneAmount, '')}
             />
           </Card>
         </Col>

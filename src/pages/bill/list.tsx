@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'umi';
 import ContentHeader from '@/components/contentHeader';
 import { UserModelState } from '@/models/user';
 import { ListSearch, ListData } from './components';
+import { ListStat } from '@/pages/recharge/components';
 
 const routes = [
   {
@@ -66,7 +67,7 @@ const BillListPage: React.FC = () => {
   return (
     <>
       <ContentHeader breadcrumb={{ routes }} title="记录">
-        账单金额 = 订单金额 * 账户费率
+        <ListStat />
       </ContentHeader>
       <div className="main-container">
         <Spin size="large" spinning={loading}>
@@ -81,6 +82,13 @@ const BillListPage: React.FC = () => {
             onPageChange={onPageChange}
           />
         </Spin>
+        <Divider dashed />
+        <div>
+          <h3>说明</h3>
+          <ol>
+            <li>账单金额 = 订单金额 * 账户费率。</li>
+          </ol>
+        </div>
       </div>
     </>
   );

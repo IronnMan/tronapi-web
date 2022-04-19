@@ -69,20 +69,11 @@ export default [
           {
             name: '订单测试',
             path: '/tool/test',
-            layout: false,
             component: '@/pages/tool/test',
-          },
-          {
-            name: '订单测试',
-            path: '/tool/test/result',
-            layout: false,
-            hideInMenu: true,
-            component: '@/pages/tool/testResult',
           },
           {
             name: '地址生成',
             path: '/tool/generate',
-            layout: false,
             component: '@/pages/tool/generate',
           },
           { component: '@/pages/404' },

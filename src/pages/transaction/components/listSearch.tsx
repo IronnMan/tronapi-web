@@ -50,7 +50,7 @@ const ListSearch: React.FC<IProps> = (props) => {
           }}
         />
       </Form.Item>
-      <Form.Item label="完成状态" name="status">
+      <Form.Item label="支付状态" name="status">
         <Select style={{ width: '120px' }} allowClear placeholder="请选择">
           {SEARCH_STATUS_OPTIONS.map((status, index) => {
             return (

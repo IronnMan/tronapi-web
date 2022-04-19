@@ -27,7 +27,7 @@ const ListStat: React.FC<IProps> = () => {
         <Card {...cardProps}>
           <Statistic
             title={'账户余额（USDT）'}
-            value={formatAmount(merchant_balance.balance)}
+            value={formatAmount(merchant_balance.balance, '')}
           />
         </Card>
       </Col>

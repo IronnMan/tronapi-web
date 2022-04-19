@@ -57,14 +57,19 @@ const TransactionDetailPage: React.FC<any> = () => {
   const webhookTabVisible = React.useMemo(() => {
     return (
       transactionDetail &&
+      transactionDetail.status === true &&
       transactionDetail.merchant_transaction_webhooks &&
       transactionDetail.merchant_transaction_webhooks.length
     );
   }, [transactionDetail]);
 
   const handleTabVisible = React.useMemo(() => {
-    return transactionDetail && transactionDetail.status === false;
+    return transactionDetail && transactionDetail.status !== true;
   }, [transactionDetail]);
+
+  const onHandleSuccess = () => {
+    fetchDetail();
+  };
 
   return (
     <>
@@ -75,7 +80,7 @@ const TransactionDetailPage: React.FC<any> = () => {
       />
       <div className="main-container">
         <Spin size="large" spinning={loading}>
-          <Tabs defaultActiveKey="3">
+          <Tabs defaultActiveKey="1">
             <Tabs.TabPane tab="订单信息" key="1">
               <TransactionMeta
                 data={transactionDetail}
@@ -89,7 +94,10 @@ const TransactionDetailPage: React.FC<any> = () => {
             ) : null}
             {handleTabVisible ? (
               <Tabs.TabPane tab="人工处理" key="3">
-                <TransactionHandle data={transactionDetail} />
+                <TransactionHandle
+                  data={transactionDetail}
+                  onSuccess={onHandleSuccess}
+                />
               </Tabs.TabPane>
             ) : null}
           </Tabs>

@@ -14,10 +14,6 @@ const routes = [
     path: '/transaction/list',
     breadcrumbName: '订单',
   },
-  {
-    path: '',
-    breadcrumbName: '统计',
-  },
 ];
 
 const TransactionReportPage: React.FC<any> = () => {

@@ -29,7 +29,7 @@ const DEFAULT_TAB = SETTING_TYPE.NOTIFICATION;
 const SettingPage: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { currentUser = {} } = initialState!;
-  const { merchant_config = {}, user_keystone = {} } = currentUser;
+  const { merchant_config = {}, merchant_keystone = {} } = currentUser;
 
   const dispatch = useDispatch();
   const { location } = useHistory();
@@ -98,7 +98,7 @@ const SettingPage: React.FC = () => {
           <TabPane tab="接口密钥" key={SETTING_TYPE.KEYSTONE}>
             <Keystone
               onSubmit={onSubmit}
-              data={user_keystone}
+              data={merchant_keystone}
               loading={loading}
             />
           </TabPane>

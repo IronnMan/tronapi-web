@@ -15,10 +15,10 @@ export const CURRENCY_OPTIONS = [
 export const SEARCH_STATUS_OPTIONS = [
   {
     value: SEARCH_STATUS.RESOLVED,
-    label: '已完成',
+    label: '已支付',
   },
   {
     value: SEARCH_STATUS.REJECTED,
-    label: '未完成',
+    label: '未支付',
   },
 ];
