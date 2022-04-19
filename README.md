@@ -35,4 +35,5 @@
 
 ## 💬 联系
 
-可通过 [官网](https://doc.tronapi.com) `右下角` 反馈功能和我们取得联系。
+- 可通过 [官网](https://doc.tronapi.com) `右下角` 反馈功能和我们取得联系。
+- telegram: jackslowfak
