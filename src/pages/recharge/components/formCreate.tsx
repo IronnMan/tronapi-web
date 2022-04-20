@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector, useModel } from 'umi';
-import { Modal, Form, Alert, Tag, Input } from 'antd';
+import { Modal, Form, Alert, Input } from 'antd';
 import { formatAmount } from '@/utils/formater';
 
 interface IProps {

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Form, Input, Modal, Divider, Select, Button } from 'antd';
-import { useDispatch, useSelector } from 'umi';
+import { useDispatch, useSelector, useModel } from 'umi';
 import ContentHeader from '@/components/contentHeader';
 import { CURRENCY_TYPE } from '@/configs/enum';
 import { CURRENCY_OPTIONS } from '@/configs/options';
@@ -23,6 +23,8 @@ const ToolTestPage: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
+  const { initialState, setInitialState } = useModel('@@initialState');
+
   const [queryLoading, setQueryLoading] = useState(false);
   const [buttonText, setButtonText] = useState('提交');
   const [queryTimer] = useState<any>(null);
@@ -34,6 +36,16 @@ const ToolTestPage: React.FC = () => {
     }
     setQueryLoading(false);
     setButtonText('提交');
+  };
+
+  const handleSuccess = async () => {
+    const userInfo = await initialState?.fetchUserInfo?.();
+    if (userInfo) {
+      await setInitialState((s) => ({
+        ...s,
+        currentUser: userInfo,
+      }));
+    }
   };
 
   const handleQuery = async (id: string) => {
@@ -52,6 +64,8 @@ const ToolTestPage: React.FC = () => {
             title: '恭喜你，订单支付成功！',
             content: <div>支付金额: {formatAmount(coin_amount)}。</div>,
           });
+
+          handleSuccess();
 
           setQueryLoading(false);
           setButtonText('提交');
