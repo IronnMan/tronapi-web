@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Pagination, Tooltip, Divider, Badge } from 'antd';
+import { Table, Pagination, Tooltip, Badge } from 'antd';
 import { Link } from 'umi';
 import ITransaction from '@/types/ITransaction';
 import { formatDateTime, formatAmount } from '@/utils/formater';
@@ -57,6 +57,7 @@ const columns = [
     dataIndex: 'product_name',
     key: 'product_name',
     render: (val: any) => {
+      if (!val) return '-';
       return (
         <Tooltip title={val}>
           <div
@@ -76,6 +77,7 @@ const columns = [
     dataIndex: 'customer_id',
     key: 'customer_id',
     render: (val: any) => {
+      if (!val) return '-';
       return (
         <Tooltip title={val}>
           <div
