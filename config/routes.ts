@@ -76,11 +76,6 @@ export default [
             path: '/tool/generate',
             component: '@/pages/tool/generate',
           },
-          {
-            name: 'Wallet connect',
-            path: '/tool/walletconnect',
-            component: '@/pages/tool/walletconnect',
-          },
           { component: '@/pages/404' },
         ],
       },
